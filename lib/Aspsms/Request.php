@@ -165,10 +165,10 @@ class Request
      * 
      * @param string $message
      */
-    public function setMessageText($message = NULL)
-    {
-        $this->fields['MessageText'] = $message === NULL ? '' : $message;
-    }
+//    public function setMessageText($message = NULL)
+//    {
+//        $this->fields['MessageText'] = $message === NULL ? '' : $message;
+//    }
     
     /**
      * @param string $affiliateId
@@ -271,5 +271,98 @@ class Request
     public function setURLBufferedMessageNotification($url)
     {
         $this->fields['URLBufferedMessageNotification'] = strval($url);
+    }
+    
+    /**
+     * Official doc:
+     * 
+     * If MessageData is set, the placeholder <VERIFICATIONCODE> will be
+     * substituted with the verification code. If MessageData is not defined,
+     * or if MessageData does not contain the placeholder <VERIFICATIONCODE>,
+     * only the verification code is sent.
+     * 
+     * @param string $data
+     */
+    public function setMessageData($data)
+    {
+        $this->fields['MessageData'] = strval($data);
+    }
+    
+    /**
+     * Official doc:
+     * 
+     * Explicitly specifies the verification code to be sent to the user.
+     * 
+     * @param string $ref
+     */
+    public function setTokenReference($ref)
+    {
+        $this->fields['TokenReference'] = strval($ref);
+    }
+    
+    /**
+     * Official doc:
+     * 
+     * Specifies the validity period of a Token in minutes.
+     * If not specified, the TokenValidity is 5 minutes by default.
+     * 
+     * @param int $minutes
+     */
+    public function setTokenValidity($minutes = 5)
+    {
+//        if ( ! empty($valid))
+//        {
+            $this->fields['TokenValidity'] = strval(intval($minutes));
+//        }
+//        else
+//        {
+//            $this->fields['TokenValidity'] = '';
+//        }
+    }
+    
+    /**
+     * Official doc:
+     * 
+     * Used to have the ASPSMS generate a verification code by mask. The mask can contain the following special characters:
+     *
+     *  # : a digit
+     *  A : an alphabetic character
+     *  N : an alphanumeric character
+     *
+     *  All other characters are taken literally. If not specified, the Mask is "NNNN" by default.
+     *
+     * @param string $mask
+     */
+    public function setTokenMask($mask)
+    {
+        $this->fields['TokenMask'] = strval($mask);
+    }
+    
+    /**
+     * Official doc:
+     * 
+     * Explicitly specifies the verification code to be sent to the user.
+     * 
+     * @param string $code
+     */
+    public function setVerificationCode($code)
+    {
+        $this->fields['VerificationCode'] = strval($code);
+    }
+    
+    
+    /**
+     * Official doc:
+     * 
+     * Specifies, if the verification code comparison is case sensitive:
+     *  1 : case sensitive
+     *  0 : not case sensitive
+     *  If not specified, TokenCaseSensitive is 0 by default.
+     *
+     * @param boolean $is_sensitive
+     */
+    public function setTokenCaseSensitive($is_sensitive = FALSE)
+    {
+        $this->fields['TokenCaseSensitive'] = $is_sensitive ? '1' : '0';
     }
 }

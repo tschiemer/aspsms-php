@@ -51,4 +51,68 @@ class SoapSimpleClient extends AbstractSimpleClient
             'StatusCode' => $statusCode
         ));
     }
+    
+    
+    /**
+     * 
+     * @param string $phoneNr
+     * @param string $reference
+     * @param string $verificationCode
+     * @param string $message
+     * @param int $minutes
+     * @param boolean $case_sensitive
+     * @return boolean
+     */
+    public function sendMyToken($phoneNr,$reference,$verificationCode,$message='',$minutes=5, $case_sensitive=0)
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendToken',
+            'Recipients'        => $phoneNr,
+            'TokenReference'    => $reference,
+            'VerificationCode'  => $verificationCode,
+            'MessageData'       => $message,
+            'TokenValidity'     => $minutes,
+            'TokenCaseSensitive'=> $case_sensitive
+        ));
+    }
+    
+    /**
+     * 
+     * @param string $phoneNr
+     * @param string $reference
+     * @param string $mask
+     * @param string $message
+     * @param int $minutes
+     * @param boolean $case_sensitive
+     * @return boolean
+     */
+    public function sendGeneratedToken($phoneNr,$reference,$mask='',$message='',$minutes=5, $case_sensitive=0)
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendToken',
+            'Recipients'        => $phoneNr,
+            'TokenReference'    => $reference,
+            'TokenMask'         => $mask,
+            'MessageData'       => $message,
+            'TokenValidity'     => $minutes,
+            'TokenCaseSensitive'=> $case_sensitive
+        ));
+    }
+    
+    /**
+     * 
+     * @param string $phoneNr
+     * @param string $reference
+     * @param string $verificationCode
+     * @return boolean
+     */
+    public function validateToken($phoneNr,$reference,$verificationCode)
+    {
+        return $this->send(array(
+            'RequestName'       => 'verifyToken',
+            'PhoneNumber'       => $phoneNr,
+            'TokenReference'    => $reference,
+            'VerificationCode'  => $verificationCode
+        ));
+    }
 }

@@ -127,64 +127,64 @@ class SimpleClient extends \Aspsms\AbstractSimpleClient
         
         return $this;
     }
-    
-    /**
-     * Request: Get description to given status code.
-     * 
-     * @param string|int $statusCode
-     * @return string
-     */
-    public function getStatusDescription($statusCode)
-    {   
-        $this->lastRequest = new GetStatusCodeDescription($statusCode);
-        
-        $this->lastResponse = $this->driver->GetStatusCodeDescription(
-            $this->lastRequest
-        );
-        
-        return $this->lastResponse->result();
-    }
-    
-    /**
-     * Request: get version string of web service.
-     * 
-     * For more details you can also access the last response and versin/build methods.
-     * 
-     * WARNING: sets lastRequest to NULL
-     * 
-     * @see VersionInfoResponse lastResponse()
-     * @return string
-     */
-    public function getVersion()
-    {
-        $this->lastRequest = NULL;
-        
-        $this->lastResponse = $this->driver->VersionInfo();
-        
-        return $this->lastResponse->result();
-    }
-    
-    
-    /**
-     * Request: what's the current balance?
-     * 
-     * @return float
-     */
-    public function getCreditBalance()
-    {
-        $request = new RequestAuth($this->userkey, $this->password);
-        $this->lastResponse = $this->driver->CheckCredits($request);
-        
-        if ($this->lastResponse->success())
-        {
-            return floatval($this->lastResponse->result());
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-    
+//    
+//    /**
+//     * Request: Get description to given status code.
+//     * 
+//     * @param string|int $statusCode
+//     * @return string
+//     */
+//    public function getStatusDescription($statusCode)
+//    {   
+//        $this->lastRequest = new GetStatusCodeDescription($statusCode);
+//        
+//        $this->lastResponse = $this->driver->GetStatusCodeDescription(
+//            $this->lastRequest
+//        );
+//        
+//        return $this->lastResponse->result();
+//    }
+//    
+//    /**
+//     * Request: get version string of web service.
+//     * 
+//     * For more details you can also access the last response and versin/build methods.
+//     * 
+//     * WARNING: sets lastRequest to NULL
+//     * 
+//     * @see VersionInfoResponse lastResponse()
+//     * @return string
+//     */
+//    public function getVersion()
+//    {
+//        $this->lastRequest = NULL;
+//        
+//        $this->lastResponse = $this->driver->VersionInfo();
+//        
+//        return $this->lastResponse->result();
+//    }
+//    
+//    
+//    /**
+//     * Request: what's the current balance?
+//     * 
+//     * @return float
+//     */
+//    public function getCreditBalance()
+//    {
+//        $request = new RequestAuth($this->userkey, $this->password);
+//        $this->lastResponse = $this->driver->CheckCredits($request);
+//        
+//        if ($this->lastResponse->success())
+//        {
+//            return floatval($this->lastResponse->result());
+//        }
+//        else
+//        {
+//            return FALSE;
+//        }
+//    }
+//    
     
 //    /**
 //     * Request: Is (numeric) originator valid?
@@ -295,70 +295,70 @@ class SimpleClient extends \Aspsms\AbstractSimpleClient
         
         return $list;
     }
-    
-    /**
-     * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $verificationCode
-     * @param string $message
-     * @param int $minutes
-     * @param boolean $case_sensitive
-     * @return boolean
-     */
-    public function sendMyToken($phoneNr,$reference,$verificationCode,$message='',$minutes=5, $case_sensitive=0)
-    {
-        return $this->send(array(
-            'Recipients'        => $phoneNr,
-            'TokenReference'    => $reference,
-            'VerificationCode'  => $verificationCode,
-            'MessageData'       => $message,
-            'TokenValidity'     => $minutes,
-            'TokenCaseSensitive'=> $case_sensitive
-        ));
-    }
-    
-    /**
-     * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $mask
-     * @param string $message
-     * @param int $minutes
-     * @param boolean $case_sensitive
-     * @return boolean
-     */
-    public function sendGeneratedToken($phoneNr,$reference,$mask='',$message='',$minutes=5, $case_sensitive=0)
-    {
-        return $this->send(array(
-            'Recipients'        => $phoneNr,
-            'TokenReference'    => $reference,
-            'TokenMask'         => $mask,
-            'MessageData'       => $message,
-            'TokenValidity'     => $minutes,
-            'TokenCaseSensitive'=> $case_sensitive
-        ));
-    }
-    
-    /**
-     * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $verificationCode
-     * @return boolean
-     */
-    public function validateToken($phoneNr,$reference,$verificationCode)
-    {
-        $this->lastRequest = new VerifyToken(
-                $this->userkey,
-                $this->password,
-                $phoneNr, $reference, $verificationCode
-        );
-        
-        $this->lastResponse = $this->driver->VerifyToken($this->lastRequest);
-        
-        return $this->lastResponse->success();
-    }
+//    
+//    /**
+//     * 
+//     * @param string $phoneNr
+//     * @param string $reference
+//     * @param string $verificationCode
+//     * @param string $message
+//     * @param int $minutes
+//     * @param boolean $case_sensitive
+//     * @return boolean
+//     */
+//    public function sendMyToken($phoneNr,$reference,$verificationCode,$message='',$minutes=5, $case_sensitive=0)
+//    {
+//        return $this->send(array(
+//            'Recipients'        => $phoneNr,
+//            'TokenReference'    => $reference,
+//            'VerificationCode'  => $verificationCode,
+//            'MessageData'       => $message,
+//            'TokenValidity'     => $minutes,
+//            'TokenCaseSensitive'=> $case_sensitive
+//        ));
+//    }
+//    
+//    /**
+//     * 
+//     * @param string $phoneNr
+//     * @param string $reference
+//     * @param string $mask
+//     * @param string $message
+//     * @param int $minutes
+//     * @param boolean $case_sensitive
+//     * @return boolean
+//     */
+//    public function sendGeneratedToken($phoneNr,$reference,$mask='',$message='',$minutes=5, $case_sensitive=0)
+//    {
+//        return $this->send(array(
+//            'Recipients'        => $phoneNr,
+//            'TokenReference'    => $reference,
+//            'TokenMask'         => $mask,
+//            'MessageData'       => $message,
+//            'TokenValidity'     => $minutes,
+//            'TokenCaseSensitive'=> $case_sensitive
+//        ));
+//    }
+//    
+//    /**
+//     * 
+//     * @param string $phoneNr
+//     * @param string $reference
+//     * @param string $verificationCode
+//     * @return boolean
+//     */
+//    public function validateToken($phoneNr,$reference,$verificationCode)
+//    {
+//        $this->lastRequest = new VerifyToken(
+//                $this->userkey,
+//                $this->password,
+//                $phoneNr, $reference, $verificationCode
+//        );
+//        
+//        $this->lastResponse = $this->driver->VerifyToken($this->lastRequest);
+//        
+//        return $this->lastResponse->success();
+//    }
     
     public function invalidateToken($phoneNr,$reference,$verificationCode)
     {
@@ -370,138 +370,138 @@ class SimpleClient extends \Aspsms\AbstractSimpleClient
         ));
     }
     
-    
-    /**
-     * Sets any SMS message options.
-     * 
-     * @param string|array $key_or_array
-     * @param NULL|mixed $value
-     * @return \Aspsms\Soap\v2\SimpleClient
-     * @throws AspsmsException
-     */
-    public function set($key_or_array = NULL, $value = NULL)
-    {
-        // Initialize message data if not done yet.
-        if ($this->message === NULL)
-        {
-            $this->message = array(
-                'msgType' => NULL
-            );
-        }
-        
-        // If is string, bring into array form
-        if (is_string($key_or_array))
-        {
-            $key_or_array = array($key_or_array => $value);
-        }
-        
-        
-        $type_is_predefined = isset($key_or_array['msgType']);
-        if ($type_is_predefined)
-        {
-            if ( ! in_array($key_or_array['msgType'],$this->validTypes))
-            {
-                throw new AspsmsException('Invalid message type: '.$v);
-            }
-            
-            $this->message['msgType'] = $key_or_array['msgType'];
-            
-            unset($key_or_array['msgType']);
-        }
-        
-        foreach($key_or_array as $k => $v)
-        {
-            $this->message[$k] = $v;
-            
-            // Try to guess type by set options
-            $before = $after = $this->message['msgType'];
-            
-            if (isset($this->field2Type[$k]))
-            {
-                $after = $this->field2Type[$k];
-            }
-//            if (in_array($k, array('MessageText')))
+//    
+//    /**
+//     * Sets any SMS message options.
+//     * 
+//     * @param string|array $key_or_array
+//     * @param NULL|mixed $value
+//     * @return \Aspsms\Soap\v2\SimpleClient
+//     * @throws AspsmsException
+//     */
+//    public function set($key_or_array = NULL, $value = NULL)
+//    {
+//        // Initialize message data if not done yet.
+//        if ($this->message === NULL)
+//        {
+//            $this->message = array(
+//                'msgType' => NULL
+//            );
+//        }
+//        
+//        // If is string, bring into array form
+//        if (is_string($key_or_array))
+//        {
+//            $key_or_array = array($key_or_array => $value);
+//        }
+//        
+//        
+//        $type_is_predefined = isset($key_or_array['msgType']);
+//        if ($type_is_predefined)
+//        {
+//            if ( ! in_array($key_or_array['msgType'],$this->validTypes))
 //            {
-//                $after = $this->defaultType['text'];
+//                throw new AspsmsException('Invalid message type: '.$v);
 //            }
-//            elseif (in_array($k,array('WapDescription','WapURL')))
+//            
+//            $this->message['msgType'] = $key_or_array['msgType'];
+//            
+//            unset($key_or_array['msgType']);
+//        }
+//        
+//        foreach($key_or_array as $k => $v)
+//        {
+//            $this->message[$k] = $v;
+//            
+//            // Try to guess type by set options
+//            $before = $after = $this->message['msgType'];
+//            
+//            if (isset($this->field2Type[$k]))
 //            {
-//                $after = $this->defaultType['wap'];
+//                $after = $this->field2Type[$k];
 //            }
-//            elseif (in_array($k,array('MessageData','TokenReference','TokenValidity','TokenMask','VerificationCode','TokenCaseSensitive')))
-//            {                
-//                $after = $this->defaultType['wap'];
+////            if (in_array($k, array('MessageText')))
+////            {
+////                $after = $this->defaultType['text'];
+////            }
+////            elseif (in_array($k,array('WapDescription','WapURL')))
+////            {
+////                $after = $this->defaultType['wap'];
+////            }
+////            elseif (in_array($k,array('MessageData','TokenReference','TokenValidity','TokenMask','VerificationCode','TokenCaseSensitive')))
+////            {                
+////                $after = $this->defaultType['wap'];
+////            }
+//            // Oh oh, we've come to contradictary conclusions!
+//            if ($before !== NULL and $before != $after and ! $type_is_predefined)
+//            {
+//                throw new AspsmsException('Automatic detection of message type lead to confusion because of contradictionary data, try to predefine type.');
 //            }
-            // Oh oh, we've come to contradictary conclusions!
-            if ($before !== NULL and $before != $after and ! $type_is_predefined)
-            {
-                throw new AspsmsException('Automatic detection of message type lead to confusion because of contradictionary data, try to predefine type.');
-            }
-            $this->message['msgType'] = $after;
-            
-        }
-        
-        return $this;
-    }
-    
-    /**
-     * Sends SMS, allows shortcut access to <set()>
-     * 
-     * @see set()
-     * @param array $options
-     * @return boolean
-     * @throws \Aspsms\Soap\v2\AspsmsException
-     */
-    public function send($options = array())
-    {
-        // guarantee correct message settings
-        $this->set($options);
-        
-        // basic validation
-        if ( $this->message['msgType'] === NULL)
-        {
-            throw new AspsmsException('Message type unknown, you do not seem to have provided enough options to submit a message.');
-        }
-        
-        // Which is the actual message type?
-        $msgType = $this->message['msgType'];
-        
-        // Also get the according class
-        $msgClass = __NAMESPACE__ . '\\' . $msgType;
-        
-        // Initialize data packet with default data ..
-        // ..that can yet be overriden! (see below)
-        $this->lastRequest = new $msgClass($this->userkey,$this->password,$this->originator);
-        
-        // default affiliate id
-        $this->lastRequest->setAffiliateId($this->affiliateId);
-        
-        // default notification urls
-        if ($this->lastRequest instanceof RequestMessage)
-        {
-            $this->lastRequest->setURLDeliveryNotification($this->url['URLDeliveryNotification']);
-            $this->lastRequest->setURLNonDeliveryNotification($this->url['URLNonDeliveryNotification']);
-            $this->lastRequest->setURLBufferedMessageNotification($this->url['URLBufferedMessageNotification']);
-        }
-        
-        
-        // Set (and override_ any options for the message
-        foreach($this->message as $k => $v)
-        {
-            if (method_exists($this->lastRequest, 'set'.$k))
-            {
-                $this->lastRequest->{'set'.$k}($v);
-            }
-        }
-        
-        // This is the actual request happening right here.
-        $this->lastResponse = $this->driver->$msgType($this->lastRequest);
-        
-        // Clear any message settings
-        $this->message = NULL;
-        
-        return $this->lastResponse->success();
-    }
-    
+//            $this->message['msgType'] = $after;
+//            
+//        }
+//        
+//        return $this;
+//    }
+//    
+//    /**
+//     * Sends SMS, allows shortcut access to <set()>
+//     * 
+//     * @see set()
+//     * @param array $options
+//     * @return boolean
+//     * @throws \Aspsms\Soap\v2\AspsmsException
+//     */
+//    public function send($options = array())
+//    {
+//        // guarantee correct message settings
+//        $this->set($options);
+//        
+//        // basic validation
+//        if ( $this->message['msgType'] === NULL)
+//        {
+//            throw new AspsmsException('Message type unknown, you do not seem to have provided enough options to submit a message.');
+//        }
+//        
+//        // Which is the actual message type?
+//        $msgType = $this->message['msgType'];
+//        
+//        // Also get the according class
+//        $msgClass = __NAMESPACE__ . '\\' . $msgType;
+//        
+//        // Initialize data packet with default data ..
+//        // ..that can yet be overriden! (see below)
+//        $this->lastRequest = new $msgClass($this->userkey,$this->password,$this->originator);
+//        
+//        // default affiliate id
+//        $this->lastRequest->setAffiliateId($this->affiliateId);
+//        
+//        // default notification urls
+//        if ($this->lastRequest instanceof RequestMessage)
+//        {
+//            $this->lastRequest->setURLDeliveryNotification($this->url['URLDeliveryNotification']);
+//            $this->lastRequest->setURLNonDeliveryNotification($this->url['URLNonDeliveryNotification']);
+//            $this->lastRequest->setURLBufferedMessageNotification($this->url['URLBufferedMessageNotification']);
+//        }
+//        
+//        
+//        // Set (and override_ any options for the message
+//        foreach($this->message as $k => $v)
+//        {
+//            if (method_exists($this->lastRequest, 'set'.$k))
+//            {
+//                $this->lastRequest->{'set'.$k}($v);
+//            }
+//        }
+//        
+//        // This is the actual request happening right here.
+//        $this->lastResponse = $this->driver->$msgType($this->lastRequest);
+//        
+//        // Clear any message settings
+//        $this->message = NULL;
+//        
+//        return $this->lastResponse->success();
+//    }
+//    
     
 }
