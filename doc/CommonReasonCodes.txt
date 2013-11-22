@@ -1,0 +1,56 @@
+Source: http://www.aspsms.de/newsletter/html/en/200905/
+Source: http://www.aspsms.de/xml/doc/xmlsvr191.pdf
+
+List of the Reasoncodes that appear the most:
+
+Reasoncode 000
+"Unknown subscriber"
+Recipient that does not or not anymore exist. Please check, if the number has been entered correctly.
+
+Reasoncode 103
+"Call barred"
+This number has been barred by the provider. This Reasoncode has also occurred in context with empty prepaid cards which were barred for receiving SMS. Often it is still possible to call such a number.
+
+Reasoncode 107
+"Absent subscriber"
+107 is the most common Reasoncode. The mobile device is turned off or has no reception for some reason. As soon as the device is reachable again, most likely the reception of SMS will work again.
+
+Reasoncode 108 (buffered)
+"Delivery fail"
+This Reasoncode often occurs when the memory of a mobile device is full. If the recipient deletes one or more stored messages, most likely the message will be delivered.
+
+Reasoncode 108 (failed)
+"Delivery fail"
+The validity of a message has expired. That means the system has tried to deliver the message for 24 hours unsuccessfully. The delivery has failed definitely.
+
+Reasoncode 110
+"Protocol error"
+In the past this error often occurred with certain mobile devices which were not able to handle alphanumeric originators correctly. Now the error occurres mostly when sending overlength messages (more than 160 chars). The concatenation is handled incorrectly within the mobile device and the message will not be displayed.
+
+Reasoncode 117
+"SMS lower layer not provisioned"
+This code has often been sighted with roaming combinations in non European networks. Typically networks in North- and Southamerica are affected of this error.
+
+Reasoncode 010
+"Network time-out"
+This code has often been sighted with roaming combinations in non European networks. Typically networks in North- and Southamerica are affected of this error.
+
+Reasoncode 118
+"System fail"
+It was tried to send a message, but a failure, which could not be specified any further, occurred in the network. This error has been viewed in context with not reachable, barred or overloaded networks and warlike events.
+
+Reasoncodes 119
+"PLMN system failure"
+This code has appeared several times when there was more than one SIM card with the same number signed on in the network. Often code 119 appears together with the use of communication systems which are not able to receive SMS (e.g. UMTS cards).
+
+Reasoncodes 111
+"MS not equipped"
+This code has appeared several times when there was more than one SIM card with the same number signed on in the network. Often code 119 appears together with the use of communication systems which are not able to receive SMS (e.g. UMTS cards).
+
+Reasoncode 120
+"HLR system failure"
+Home Location Register - Indicates serious problems within the network of the recipient. This code occurs mostly when the recipients network is not reachable. In this case the chance is very little for the SMS to be sent later on. Most likely a delivery failure will be displayed after the validity of the message has expired.
+
+Reasoncode 121
+"VLR system failure"
+Visiting Location Register Failure - Indicates problems within the network of the recipient. This reasoncode has already occured in combination with roaming problems, e.g. if the recipient was abroad and the foreign network has not negociated an SMS roamingagreement with his home network.
