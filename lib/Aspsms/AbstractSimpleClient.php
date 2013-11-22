@@ -2,8 +2,15 @@
 
 namespace Aspsms;
 
+require_once dirname(__FILE__) . '/AbstractClient.php';
+
 abstract class AbstractSimpleClient
 {
+    /**
+     * @var Request
+     * @access protected
+     */
+    var $currentRequest = NULL;
     
     /**
      * @var Request
@@ -50,14 +57,6 @@ abstract class AbstractSimpleClient
         'URLNonDeliveryNotification'        => '',
         'URLBufferedMessageNotification'    => ''
     );
-    
-    
-    /**
-     * @var array
-     * @access protected
-     */
-    var $message = NULL;
-    
     
     
     public function __construct($options = array())
@@ -108,17 +107,9 @@ abstract class AbstractSimpleClient
         return $this->lastResponse;
     }
     
-    /**
-     * @return boolean|string FALSE iff no last Response exists
+    /***********************************************
+     * Set default/common settings
      */
-    public function getLastStatusCode()
-    {
-        if ($this->lastResponse === NULL)
-        {
-            return FALSE;
-        }
-        return $this->lastResponse->getStatusCode();
-    }
     
     /**
      * Sets default authentication details.
@@ -225,12 +216,22 @@ abstract class AbstractSimpleClient
         return $this;
     }
     
+    
+    /********************************************************
+     * Requests
+     */
+    
     /**
      * Request: what's the current balance?
      * 
      * @return float
      */
-    abstract public function getCreditBalance();
+    public function getCreditBalance()
+    {
+        return $this->send(array(
+            'RequestName' => 'getCredits'
+        ));
+    }
     
     
     /**
@@ -239,7 +240,18 @@ abstract class AbstractSimpleClient
      * @param NULL|string $originator
      * @return boolean
      */
-    abstract public function checkOriginator($originator = NULL);
+    public function checkOriginator($originator = NULL)
+    {
+        if ($originator === NULL)
+        {
+            $originator = $this->originator;
+        }
+        
+        return $this->send(array(
+            'RequestName' => 'checkOriginator',
+            'Originator'  => $originator
+        ));
+    }
     
     /**
      * Request: request a code to unlock numeric originator. An SMS with the code is sent
@@ -248,7 +260,18 @@ abstract class AbstractSimpleClient
      * @param string $originator Must be numeric
      * @return type
      */
-    abstract public function requestOrignatorUnlockCode($originator = NULL);
+    public function requestOriginatorUnlockCode($originator = NULL)
+    {
+        if ($originator === NULL)
+        {
+            $originator = $this->originator;
+        }
+        
+        return $this->send(array(
+            'RequestName' => 'sendOriginatorCode',
+            'Originator'  => $originator
+        ));
+    }
     
     /**
      * Request: Attempt to unlock (numeric) originator with code.
@@ -257,14 +280,61 @@ abstract class AbstractSimpleClient
      * @param type $code
      * @param type $originator
      */
-    abstract public function unlockOriginator($code, $originator = NULL);
+    public function unlockOriginator($code, $originator = NULL)
+    {
+        if ($originator === NULL)
+        {
+            $originator = $this->originator;
+        }
+        
+        return $this->send(array(
+            'RequestName' => 'unlockOriginator',
+            'Originator'  => $originator
+        ));
+    }
     
     
     /**
      * Request: get delivery status of 
      * @param string|array $trackingNumbers
      */
-    abstract public function getDeliveryStatus($trackingNumbers, $index_by_trackingNr = TRUE);
+    public function getDeliveryStatus($trackingNumbers, $select='by_nr', $keys=array())
+    {
+        if (is_array($keys) and count($keys) != 7)
+        {
+            $keys = array(
+                'nr','status','submissionDate','deliveryDate','reason','other','more'
+            );
+        }
+        return $this->send(array(
+            'RequestName' => 'getDeliveryStatus',
+            'TransactionReferenceNumbers' => $trackingNumbers,
+            'DeliveryStatusFields' => $keys
+        ));
+    }
+    
+    public function sendText($recipients,$text)
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendText',
+            'Recipients'        => $recipients,
+            'MessageText'       => $text
+        ));
+    }
+    
+    public function sendWapPush($recipients,$url,$description='')
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendWapPush',
+            'Recipients'        => $recipients,
+            'WapDescription'    => $description,
+            'WapURL'            => $url
+        ));
+    }
+    
+    /*******************************************
+     * Request option helpers
+     */
     
     /**
      * Use flashing SMS?
@@ -356,41 +426,14 @@ abstract class AbstractSimpleClient
         return $this->set($set);
     }
     
-    public function sendText($recipients,$text)
-    {
-        return $this->send(array(
-            'Recipients'        => $recipients,
-            'MessageText'       => $text
-        ));
-    }
     
-    public function sendWapPush($recipients,$url,$description='')
-    {
-        return $this->send(array(
-            'Recipients'        => $recipients,
-            'WapDescription'    => $description,
-            'WapURL'            => $url
-        ));
-    }
-    
-    
-    /**
-     * Clear any message settings set through <set()>
-     * 
-     * @see set()
-     * @return \Aspsms\AbstractSimpleClient
+    /******************************************
+     * Core request handling
      */
-    public function clear()
-    {
-        $this->message = NULL;
-        
-        return $this;
-    }
-    
     
     
     /**
-     * Sets any SMS message options.
+     * Sets any request option.
      * 
      * @param string|array $key_or_array
      * @param NULL|mixed $value
@@ -400,11 +443,17 @@ abstract class AbstractSimpleClient
     public function set($key_or_array = NULL, $value = NULL)
     {
         // Initialize message data if not done yet.
-        if ($this->message === NULL)
+        if ($this->currentRequest === NULL)
         {
-            $this->message = array(
-                'msgType' => NULL
-            );
+            $this->currentRequest = new Request(array(
+                'UserKey'       => $this->userkey,
+                'Password'      => $this->password,
+                'Originator'    => $this->originator,
+                'AffiliateId'   => $this->affiliateId,
+                'URLDeliveryNotification' => $this->urls['URLDeliveryNotification'],
+                'URLNonDeliveryNotification' => $this->urls['URLNonDeliveryNotification'],
+                'URLBufferedMessageNotification' => $this->urls['URLBufferedMessageNotification']
+            ));
         }
         
         // If is string, bring into array form
@@ -413,50 +462,71 @@ abstract class AbstractSimpleClient
             $key_or_array = array($key_or_array => $value);
         }
         
-        
-        $type_is_predefined = isset($key_or_array['msgType']);
-        if ($type_is_predefined)
-        {
-            if ( ! in_array($key_or_array['msgType'],$this->validTypes))
-            {
-                throw new AspsmsException('Invalid message type: '.$v);
-            }
-            
-            $this->message['msgType'] = $key_or_array['msgType'];
-            
-            unset($key_or_array['msgType']);
-        }
-        
+        // Now set all fields
         foreach($key_or_array as $k => $v)
         {
-            $this->message[$k] = $v;
-            
-            // Try to guess type by set options
-            $before = $after = $this->message['msgType'];
-            
-            if (in_array($k, array('MessageText')))
-            {
-                $after = $this->defaultType['text'];
-            }
-            elseif (in_array($k,array('WapDescription','WapURL')))
-            {
-                $after = $this->defaultType['wap'];
-            }
-            elseif (in_array($k,array('MessageData','TokenReference','TokenValidity','TokenMask','VerificationCode','TokenCaseSensitive')))
-            {                
-                $after = $this->defaultType['wap'];
-            }
-            // Oh oh, we've come to contradictary conclusions!
-            if ($before !== NULL and $before != $after and ! $type_is_predefined)
-            {
-                throw new AspsmsException('Automatic detection of message type lead to confusion because of contradictionary data, try to predefine type.');
-            }
-            $this->message['msgType'] = $after;
-            
+            $this->currentRequest->set($k, $v);
         }
         
         return $this;
     }
     
-    abstract public function send($options = array());
+    /**
+     * Clear any message settings set through <set()>
+     * 
+     * @see set()
+     * @return \Aspsms\AbstractSimpleClient
+     */
+    public function clear()
+    {
+        $this->currentRequest = NULL;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * @return AbstractClient Description
+     * @access protected
+     */
+    abstract public function driver(&$request);
+    
+    /**
+     * 
+     * @param array $options
+     * @return mixed
+     * @throws AspsmsException
+     */
+    public function send($options = array())
+    {
+        $this->set($options);
+        
+        if ($this->currentRequest->getRequestName() == NULL)
+        {
+            throw new AspsmsException('RequestName of request not defined, please use a given method or define properly yourself.');
+        }
+        
+        $request = $this->lastRequest = $this->currentRequest;
+        
+        // get driver to use
+        $driver = $this->driver($request);
+        
+        // Sanity check
+        if ( ! $driver->canProcess($request))
+        {
+            throw new AspsmsException('Driver can not process request '.$request->getRequestName());
+        }
+        
+        // send request
+        $driver->send($request);
+        
+        // retrieve response
+        $this->lastResponse = $driver->getResponse();
+        
+        // clear current request
+        $this->currentRequest = NULL;
+        
+        
+        return $this->lastResponse->result();
+    }
 }

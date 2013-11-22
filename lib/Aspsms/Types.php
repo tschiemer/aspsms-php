@@ -117,7 +117,7 @@ class Response
 }
 
 
-abstract class Request
+abstract class fRequest
 {
     /**
      * @see RequestMessage

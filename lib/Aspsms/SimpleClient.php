@@ -17,7 +17,7 @@ class SimpleClient extends AbstractSimpleClient
      * @var string[]
      */
     var $request2driver = array(
-        'text'  => 'soap'
+        'getVersion'  => 'soap'
     );
     
     public function __construct($options = array()) {
@@ -29,35 +29,44 @@ class SimpleClient extends AbstractSimpleClient
     /**
      * Loads and returns the correct driver for the assigned request type.
      * 
-     * @param string $requestType
+     * @param Request $requestType
      * @return AbstractClient
      * @throws AspsmsException
      */
-    public function driver($requestType)
+    public function driver(&$request)
     {
-        if ( ! isset($this->request2driver[$requestType]))
+        $requestName = $request->getRequestName();
+        
+        if ( ! isset($this->request2driver[$requestName]))
         {
-            throw new AspsmsException('Request type not recognized: '.$requestType);
+            throw new AspsmsException('Request type not recognized: '.$requestName);
         }
         
-        // Get driver
-        $obj_name = strtolower($this->request2driver[$requestType]);
+        // Get driver name
+        $driverName = strtolower($this->request2driver[$requestName]);
         
         // If driver not loaded, well, load.
-        if ( ! isset($this->drivers->$obj_name))
+        $this->loadDriver($driverName, FALSE);
+        
+        return $this->drivers->$d;
+    }
+    
+    public function loadDriver($driverName, $return = FALSE)
+    {
+        if ( ! isset($this->drivers->$obj_name) or $return)
         {
             // Look for class XyzClient in file Xyz/XyzClient.php
             $class = ucfirst($obj_name) . 'Client';
             $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'php';
-            
+
             if ( ! file_exists($path))
             {
                 throw new AspsmsException('Could not load driver file '.$path.' for driver '.$d);
             }
-            
+
             // Load file
             require_once $path;
-            
+
             // Are there any options
             if (isset($this->options[$obj_name]))
             {
@@ -67,17 +76,16 @@ class SimpleClient extends AbstractSimpleClient
             {
                 $options = array();
             }
-            
-            $this->drivers->$obj_name = new $class($options);
+
+            if ($return)
+            {
+                return new $class($options);
+            }
+            else
+            {
+                $this->drivers->$obj_name = new $class($options);
+            }
         }
-        
-        return $this->drivers->$d;
     }
     
-    public function send($options = array())
-    {
-        $this->set($options);
-        
-        
-    }
 }

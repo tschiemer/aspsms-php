@@ -27,7 +27,7 @@ class SimpleClient extends \Aspsms\AbstractSimpleClient
         'token' => 'SendTokenSMS'
     );
     
-    var $field2Type = array(
+    var $field2request = array(
         'MessageText'       => 'text',
         'WapDescription'    => 'wap',
         'WapURL'            => 'wap',
@@ -186,62 +186,62 @@ class SimpleClient extends \Aspsms\AbstractSimpleClient
     }
     
     
-    /**
-     * Request: Is (numeric) originator valid?
-     * 
-     * @param NULL|string $originator
-     * @return boolean
-     */
-    public function checkOriginator($originator = NULL)
-    {
-        if ($originator === NULL)
-        {
-            $originator = $this->originator;
-        }
-        
-        $request = new CheckOriginatorAuthorization($this->userkey,$this->password,$originator);
-        $this->lastResponse = $this->driver->CheckOriginatorAuthorization($request);
-        
-        return $this->lastResponse->success();
-    }
-    
-    /**
-     * Request: request a code to unlock numeric originator. An SMS with the code is sent
-     * to the given (or set) originator.
-     * 
-     * @param string $originator Must be numeric
-     * @return type
-     */
-    public function requestOrignatorUnlockCode($originator = NULL)
-    {
-        if ($originator === NULL)
-        {
-            $originator = $this->originator;
-        }
-        
-        $this->lastRequest = new SendOriginatorUnlockCode();
-           
-        $this->lastResponse = $this->driver->SendOriginatorUnlockCode($this->lastRequest);
-        
-        return $this->lastResponse;
-    }
-    
-    /**
-     * Request: Attempt to unlock (numeric) originator with code.
-     * 
-     * @see requestOriginatorUnlockCode()
-     * @param type $code
-     * @param type $originator
-     */
-    public function unlockOriginator($code, $originator = NULL)
-    {
-        if ($originator === NULL)
-        {
-            $originator = $this->originator;
-        }   
-        
-        return $this->lastResponse;
-    }
+//    /**
+//     * Request: Is (numeric) originator valid?
+//     * 
+//     * @param NULL|string $originator
+//     * @return boolean
+//     */
+//    public function checkOriginator($originator = NULL)
+//    {
+//        if ($originator === NULL)
+//        {
+//            $originator = $this->originator;
+//        }
+//        
+//        $request = new CheckOriginatorAuthorization($this->userkey,$this->password,$originator);
+//        $this->lastResponse = $this->driver->CheckOriginatorAuthorization($request);
+//        
+//        return $this->lastResponse->success();
+//    }
+//    
+//    /**
+//     * Request: request a code to unlock numeric originator. An SMS with the code is sent
+//     * to the given (or set) originator.
+//     * 
+//     * @param string $originator Must be numeric
+//     * @return type
+//     */
+//    public function requestOrignatorUnlockCode($originator = NULL)
+//    {
+//        if ($originator === NULL)
+//        {
+//            $originator = $this->originator;
+//        }
+//        
+//        $this->lastRequest = new SendOriginatorUnlockCode();
+//           
+//        $this->lastResponse = $this->driver->SendOriginatorUnlockCode($this->lastRequest);
+//        
+//        return $this->lastResponse;
+//    }
+//    
+//    /**
+//     * Request: Attempt to unlock (numeric) originator with code.
+//     * 
+//     * @see requestOriginatorUnlockCode()
+//     * @param type $code
+//     * @param type $originator
+//     */
+//    public function unlockOriginator($code, $originator = NULL)
+//    {
+//        if ($originator === NULL)
+//        {
+//            $originator = $this->originator;
+//        }   
+//        
+//        return $this->lastResponse;
+//    }
     
     
     /**
