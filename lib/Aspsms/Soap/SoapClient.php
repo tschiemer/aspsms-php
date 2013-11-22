@@ -45,7 +45,7 @@ class SoapClient extends AbstractClient
                                             'URLBufferedMessageNotification' => '',
                                             'URLDeliveryNotification' => '',
                                             'URLNonDeliveryNotification' => '',
-                                            'AffiliateId'
+                                            'AffiliateId' => ''
                                         )),
         'sendWapPush'               => array(
                                         'service'   => 'SimpleWAPPush',
@@ -62,7 +62,7 @@ class SoapClient extends AbstractClient
                                             'URLBufferedMessageNotification' => '',
                                             'URLDeliveryNotification' => '',
                                             'URLNonDeliveryNotification' => '',
-                                            'AffiliateId'
+                                            'AffiliateId' => ''
                                         )),
         'sendToken'                 => array(
                                         'service'   => 'SendTokenSMS',
@@ -80,7 +80,7 @@ class SoapClient extends AbstractClient
                                             'URLBufferedMessageNotification' => '',
                                             'URLDeliveryNotification' => '',
                                             'URLNonDeliveryNotification' => '',
-                                            'AffiliateId'
+                                            'AffiliateId' => ''
                                         )),
         'verifyToken'               => array(
                                         'service'   => 'VerifyToken',
