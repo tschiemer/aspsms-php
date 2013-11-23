@@ -2,9 +2,21 @@
 
 namespace Aspsms;
 
-if ( ! function_exists('deliveryStatus'))
+/**
+ * Code to description map of delivery statuses
+ * 
+ * @version 1
+ * @package aspsms.adapter.codeigniter
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ * 
+ * @param int|string $code
+ * @return string|null
+ */
+if ( ! function_exists('deliveryStatusString'))
 {
-    function deliveryStatus($code)
+    function deliveryStatusString($code)
     {
         switch (intval($code))
         {
@@ -18,9 +30,22 @@ if ( ! function_exists('deliveryStatus'))
     }
 }
 
-if ( ! function_exists('reasonCode'))
+/**
+ * Code to description map of tracking reason codes
+ * 
+ * @version 1
+ * @package aspsms.adapter.codeigniter
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ * 
+ * @see AbstractClient::getDeliveryStatus()
+ * @param int|string $code
+ * @return string|null
+ */
+if ( ! function_exists('reasonCodeString'))
 {
-    function reasonCode($code)
+    function reasonCodeString($code)
     {
         switch (intval($code))
         {
