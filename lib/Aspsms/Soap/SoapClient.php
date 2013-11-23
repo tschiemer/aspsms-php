@@ -4,6 +4,15 @@ namespace Aspsms;
 
 require_once dirname(__FILE__) . '/../AbstractClient.php';
 
+/**
+ * SOAP driver / interface.
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ */
 class SoapClient extends AbstractClient
 {
     /**
@@ -141,26 +150,6 @@ class SoapClient extends AbstractClient
         {
             $wsdl = 'https://webservice.aspsms.com/aspsmsx2.asmx?WSDL';
         }
-        
-        // Set default classmap iff not defined already
-//        if ( ! isset($options['classmap']))
-//        {
-//            $options['classmap'] = array(
-//                'CheckCreditsResponse'                  => '\Aspsms\Soap\v2\CheckCreditsResponse',
-//                'CheckOriginatorAuthorizationResponse'  => '\Aspsms\Soap\v2\CheckOriginatorAuthorizationResponse',
-//                'GetStatusCodeDescriptionResponse'      => '\Aspsms\Soap\v2\GetStatusCodeDescriptionResponse',
-//                'InquireDeliveryNotificationsResponse'  => '\Aspsms\Soap\v2\InquireDeliveryNotificationsResponse',
-//                'SendOriginatorUnlockCodeResponse'      => '\Aspsms\Soap\v2\SendOriginatorUnlockCodeResponse',
-//                'SendSimpleTextSMSResponse'             => '\Aspsms\Soap\v2\SendSimpleTextSMSResponse',
-//                'SendTextSMSResponse'                   => '\Aspsms\Soap\v2\SendTextSMSResponse',
-//                'SendTokenSMSResponse'                  => '\Aspsms\Soap\v2\SendTokenSMSResponse',
-//                'SendUnicodeSMSResponse'                => '\Aspsms\Soap\v2\SendUnicodeSMSResponse',
-//                'SimpleWAPPushResponse'                 => '\Aspsms\Soap\v2\SimpleWAPPushResponse',
-//                'UnlockOriginatorResponse'              => '\Aspsms\Soap\v2\UnlockOriginatorResponse',
-//                'VersionInfoResponse'                   => '\Aspsms\Soap\v2\VersionInfoResponse',
-//                'VerifyTokenResponse'                   => '\Aspsms\Soap\v2\VerifyTokenResponse'
-//            );
-//        }
         
         // Disable wsdl caching, if not set otherwise
         if ( ! isset($options['cache_wsdl']))

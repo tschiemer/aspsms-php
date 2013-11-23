@@ -2,99 +2,33 @@
 
 namespace Aspsms;
 
-class SimpleClient extends AbstractSimpleClient
+require_once dirname(__FILE__) . '/../AbstractSimpleClient.php';
+require_once dirname(__FILE__) . '/HttpClient.php';
+
+/**
+ * Simple client interface for HTTP service only.
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ */
+class HttpSimpleClient extends AbstractSimpleClient
 {
     /**
-     * Loaded drivers
-     * 
-     * @var AbstractClient[]
+     * @var SoapClient
      */
-    var $drivers = NULL;
-    
-    /**
-     * Mapping of request names to driver names
-     * 
-     * @var string[]
-     */
-    var $request2driver = array(
-        'getCredits'                => 'soap', // Xml|Soap|Http
-        'checkOriginator'           => 'soap', // Xml|Soap|Http
-        'sendOriginatorCode'        => 'soap', // Xml|Soap|Http
-        'unlockOriginator'          => 'soap', // Xml|Soap|Http
-        'getDeliveryStatus'         => 'soap', // Xml|Soap|Http
-        
-        'getVersion'                => 'soap', // Soap|Http
-        'getStatusCodeDescription'  => 'soap', // Soap|Http
-        'sendToken'                 => 'soap', // Soap|Http
-        'verifyToken'               => 'soap'  // Soap|Http
-    );
+    var $driver;
     
     public function __construct($options = array()) {
         parent::__construct($options);
         
-        $this->drivers = new \stdClass();
+        $this->driver = new HttpClient();
     }
     
-    /**
-     * Loads and returns the correct driver for the assigned request type.
-     * 
-     * @param Request $requestType
-     * @return AbstractClient
-     * @throws AspsmsException
-     */
-    public function driver(&$request)
-    {
-        $requestName = $request->getRequestName();
-        
-        if ( ! isset($this->request2driver[$requestName]))
-        {
-            throw new AspsmsException('Request type not recognized: '.$requestName);
-        }
-        
-        // Get driver name
-        $driverName = strtolower($this->request2driver[$requestName]);
-        
-        // If driver not loaded, well, load.
-        $this->loadDriver($driverName, FALSE);
-        
-        return $this->drivers->$d;
-    }
-    
-    public function loadDriver($driverName, $return = FALSE)
-    {
-        if ( ! isset($this->drivers->$obj_name) or $return)
-        {
-            // Look for class XyzClient in file Xyz/XyzClient.php
-            $class = ucfirst($obj_name) . 'Client';
-            $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'php';
-
-            if ( ! file_exists($path))
-            {
-                throw new AspsmsException('Could not load driver file '.$path.' for driver '.$d);
-            }
-
-            // Load file
-            require_once $path;
-
-            // Are there any options
-            if (isset($this->options[$obj_name]))
-            {
-                $options = $this->options[$obj_name];
-            }
-            else
-            {
-                $options = array();
-            }
-
-            if ($return)
-            {
-                return new $class($options);
-            }
-            else
-            {
-                $this->drivers->$obj_name = new $class($options);
-            }
-        }
+    public function driver(&$request) {
+        return $this->driver;
     }
     
     
@@ -190,5 +124,4 @@ class SimpleClient extends AbstractSimpleClient
             'VerificationCode'  => $verificationCode
         ));
     }
-    
 }

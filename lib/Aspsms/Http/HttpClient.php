@@ -4,6 +4,15 @@ namespace Aspsms;
 
 require_once dirname(__FILE__) . '/../Types.php';
 
+/**
+ * Driver for HTTP based services.
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ */
 class HttpClient extends AbstractClient
 {
     var $method = 'POST';

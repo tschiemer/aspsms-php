@@ -2,6 +2,15 @@
 
 namespace Aspsms;
 
+/**
+ * Shared request object used for request abstraction.
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ */
 class Request
 {   
     /**
@@ -117,6 +126,30 @@ class Request
         }
         
         return $obj;
+    }
+    
+    public function setStatusCode($statusCode)
+    {
+        if (is_int($statusCode))
+        {
+            $this->fields['StatusCode'] = 'StatusCode:'.$statusCode;
+        }
+        else
+        {
+            $this->fields['StatusCode'] = $statusCode;
+        }
+    }
+    
+    public function setTransactionReferenceNumbers($trackingnr)
+    {
+        if (is_array($trackingnr))
+        {
+            $this->fields['TransactionReferenceNumbers'] = implode(';',$trackingnr);
+        }
+        else
+        {
+            $this->fields['TransactionReferenceNumbers'] = strval($trackingnr);
+        }
     }
     
     /**

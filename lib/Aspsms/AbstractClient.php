@@ -6,6 +6,13 @@ require_once dirname(__FILE__) . '/Request.php';
 require_once dirname(__FILE__) . '/Response.php';
 
 /**
+ * Interface for service drivers, can be used as standalone components.
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
  */
 abstract class AbstractClient
 {
