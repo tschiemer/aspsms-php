@@ -38,8 +38,8 @@ class SoapClient extends AbstractClient
      * @var array
      */
     var $soapOpt = array(
-        'cache_wsdl'    => WSDL_CACHE_NONE,
-        'user_agent'    => 'aspsms-php 1.0'
+//        'cache_wsdl'    => WSDL_CACHE_NONE,
+        'user_agent'    => 'aspsms-php v1'
     );
     
     /**
@@ -176,9 +176,9 @@ class SoapClient extends AbstractClient
         
         $soapOpt = $this->soapOpt;
         
-        if (isset($options['soap']))
+        if (isset($options['opt']))
         {
-            array_merge($soapOpt,$options['soap']);
+            array_merge($soapOpt,$options['opt']);
         }
         
         try {

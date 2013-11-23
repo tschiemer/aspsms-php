@@ -32,7 +32,7 @@ class HttpClient extends AbstractClient
      * 
      * @var string
      */
-    var $method = 'GET';
+    var $method = 'POST';
     
     /**
      * List of CURL options to use.
@@ -40,7 +40,7 @@ class HttpClient extends AbstractClient
      * @var array
      */
     var $curlOpt = array(
-        CURLOPT_USERAGENT       => 'aspsms-php 1.0',
+        CURLOPT_USERAGENT       => 'aspsms-php v1',
         CURLOPT_SSL_VERIFYPEER  => FALSe
     );
     

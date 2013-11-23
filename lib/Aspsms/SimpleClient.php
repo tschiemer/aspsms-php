@@ -2,6 +2,18 @@
 
 namespace Aspsms;
 
+require_once dirname(__FILE__) . '/AbstractSimpleClient.php';
+
+
+/**
+ * Simple interface combining all possible drivers
+ * 
+ * @version 1
+ * @package aspsms
+ * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
+ * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
+ * @link https://github.com/tschiemer/aspsms-php
+ */
 class SimpleClient extends AbstractSimpleClient
 {
     /**
@@ -23,7 +35,7 @@ class SimpleClient extends AbstractSimpleClient
         'unlockOriginator'          => 'soap', // Xml|Soap|Http
         'getDeliveryStatus'         => 'soap', // Xml|Soap|Http
         
-        'getVersion'                => 'soap', // Soap|Http
+        'getVersion'                => 'http', // Soap|Http
         'getStatusCodeDescription'  => 'soap', // Soap|Http
         'sendToken'                 => 'soap', // Soap|Http
         'verifyToken'               => 'soap'  // Soap|Http
@@ -52,21 +64,21 @@ class SimpleClient extends AbstractSimpleClient
         }
         
         // Get driver name
-        $driverName = strtolower($this->request2driver[$requestName]);
+        $obj_name = strtolower($this->request2driver[$requestName]);
         
         // If driver not loaded, well, load.
-        $this->loadDriver($driverName, FALSE);
+        $this->loadDriver($obj_name, FALSE);
         
-        return $this->drivers->$d;
+        return $this->drivers->$obj_name;
     }
     
-    public function loadDriver($driverName, $return = FALSE)
+    public function loadDriver($obj_name, $return = FALSE)
     {
         if ( ! isset($this->drivers->$obj_name) or $return)
         {
             // Look for class XyzClient in file Xyz/XyzClient.php
-            $class = ucfirst($obj_name) . 'Client';
-            $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'php';
+            $class =ucfirst($obj_name) . 'Client';
+            $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'.php';
 
             if ( ! file_exists($path))
             {
@@ -85,6 +97,8 @@ class SimpleClient extends AbstractSimpleClient
             {
                 $options = array();
             }
+            
+            $class =  __NAMESPACE__ . '\\' . $class;
 
             if ($return)
             {
