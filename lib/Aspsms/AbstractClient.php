@@ -24,40 +24,40 @@ abstract class AbstractClient
      * @see canPerform()
      */
     var $requests = array(
-        'getVersion',
-        'getCredits',
-        'getStatusCodeDescription',
+        'getVersion'                => NULL,
+        'getCredits'                => NULL,
+        'getStatusCodeDescription'  => NULL,
         
-        'sendText',
-        'sendWapPush',
+        'sendText'                  => NULL,
+        'sendWapPush'               => NULL,
         
-        'sendToken',
-        'verifyToken',
+        'sendToken'                 => NULL,
+        'verifyToken'               => NULL,
         
-        'getDeliveryStatus',
+        'getDeliveryStatus'         => NULL,
         
-        'checkOriginator',
-        'sendOriginatorCode',
-        'unlockOriginator',
+        'checkOriginator'           => NULL,
+        'sendOriginatorCode'        => NULL,
+        'unlockOriginator'          => NULL,
         
-        'sendPicture',
-        'sendLogo',
-        'sendGroupLogo',
-        'sendRingtone',
-        'sendVCard',
-        'sendBinaryData'
+        'sendPicture'               => NULL,
+        'sendLogo'                  => NULL,
+        'sendGroupLogo'             => NULL,
+        'sendRingtone'              => NULL,
+        'sendVCard'                 => NULL,
+        'sendBinaryData'            => NULL
     );
 
     
     /**
      *
-     * @var Request
+     * @var \Aspsms\Request
      */
     var $request = NULL;
     
     /**
      *
-     * @var Response
+     * @var \Aspsms\Response
      */
     var $response = NULL;
     
@@ -66,7 +66,7 @@ abstract class AbstractClient
     /**
      * Can satisfy/perform the given request?
      * 
-     * @param string $requestName
+     * @param string|\Aspsms\Request $requestName
      * @return boolean
      */
     public function canProcess($request)
@@ -75,7 +75,7 @@ abstract class AbstractClient
         {
             $request = $request->getRequestName();
         }
-        return in_array($request,$this->requests);
+        return array_key_exists($request, $this->requests);
     }
     
     /**
@@ -85,11 +85,17 @@ abstract class AbstractClient
      */
     abstract public function send($request);
     
+    /**
+     * @return \Aspsms\Response
+     */
     public function getResponse()
     {
         return $this->response;
     }
     
+    /**
+     * Reset internal request and response
+     */
     public function clear()
     {
         $this->request = NULL;

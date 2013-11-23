@@ -4,6 +4,11 @@ namespace Aspsms;
 
 require_once dirname(__FILE__) . '/../AbstractClient.php';
 
+if ( ! class_exists('\SoapClient'))
+{
+    throw new AspsmsException('SOAP extension required for Aspsms\SoapClient');
+}
+
 /**
  * SOAP driver / interface.
  * 
@@ -16,12 +21,30 @@ require_once dirname(__FILE__) . '/../AbstractClient.php';
 class SoapClient extends AbstractClient
 {
     /**
+     * Default WSDL source
+     * 
+     * @var string
+     */
+    var $wsdl = 'https://webservice.aspsms.com/aspsmsx2.asmx?WSDL';
+    
+    /**
      * @var \SoapClient
      */
     var $soap;
     
     /**
-     *
+     * List or default SOAP options
+     * 
+     * @var array
+     */
+    var $soapOpt = array(
+        'cache_wsdl'    => WSDL_CACHE_NONE,
+        'user_agent'    => 'aspsms-php 1.0'
+    );
+    
+    /**
+     * Request configuration
+     * 
      * @var array[]
      */
     var $requests = array(
@@ -148,31 +171,23 @@ class SoapClient extends AbstractClient
         }
         else
         {
-            $wsdl = 'https://webservice.aspsms.com/aspsmsx2.asmx?WSDL';
+            $wsdl = $this->wsdl;
         }
         
-        // Disable wsdl caching, if not set otherwise
-        if ( ! isset($options['cache_wsdl']))
+        $soapOpt = $this->soapOpt;
+        
+        if (isset($options['soap']))
         {
-            $options['cache_wsdl'] = WSDL_CACHE_NONE;
+            array_merge($soapOpt,$options['soap']);
         }
         
         try {
-            $this->soap = new \SoapClient($wsdl, $options);
+            $this->soap = new \SoapClient($wsdl, $soapOpt);
         }
         catch (\SoapFault $e) {
             $this->soap = NULL;
             throw new AspsmsException('Could not retrieve WSDL or is invalid.');
         }
-    }
-    
-    public function canProcess($request)
-    {
-        if ($request instanceof Request)
-        {
-            $request = $request->getRequestName();
-        }
-        return array_key_exists($request, $this->requests);
     }
     
     /**
@@ -181,46 +196,41 @@ class SoapClient extends AbstractClient
      */
     public function send($request)
     {
+        // Set internal request
         $this->request = $request;
         
+        // friendly shortcut
         $requestName = $request->getRequestName();
         
         
         $cfg =& $this->requests[$requestName];
         
+        // friendly shortcut
         $serviceName = $cfg['service'];
         
-        
+        // Initialize new response object
         $this->response = new Response($request);
         
-        try {
-             if (isset($cfg['param']))
-            {
-                $param = $request->extractObject($cfg['param']);
-            }
-            else
-            {
-                $param = NULL;
-            }
+        // Prepare parameters
+        if (isset($cfg['param']))
+        {
+            $param = $request->extractObject($cfg['param']);
+        }
+        else
+        {
+            $param = NULL;
+        }
             
 //            var_dump($param);
 //            exit;
+        
+        // attempt to perform request
+        try {
             
             // returns stdClass
             $soapResponse = $this->soap->$serviceName($param);
-//            if (isset($cfg['param']))
-//            {
-//                $param = array($request->extractObject($cfg['param']));
-//            }
-//            else
-//            {
-//                $param = array();
-//            }
-//            
-//            // returns stdClass
-//            $soapResponse = $this->soap->__soapCall($serviceName, $param);
             
-            // get result field
+            // get result field (name depends on service name (for some wierd reason)
             $this->response->result = $soapResponse->{$serviceName.'Result'};
             
         }
