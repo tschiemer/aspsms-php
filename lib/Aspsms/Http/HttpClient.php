@@ -253,6 +253,8 @@ class HttpClient extends AbstractClient
         curl_setopt_array($ch, $curlOpt);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); // just always set this.
         $result = curl_exec($ch);
+        curl_close($ch);
+        
         if ($result === FALSE or ! preg_match('/<\?xml version="((?:\d|\.)+)" encoding="([a-zA-Z0-9_-]+)"\?>/',$result,$m))    
         {
             die("failed curl request\n");

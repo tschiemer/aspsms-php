@@ -29,13 +29,15 @@ class SimpleClient extends AbstractSimpleClient
      * @var string[]
      */
     var $request2driver = array(
-        'getCredits'                => 'soap', // Xml|Soap|Http
-        'checkOriginator'           => 'soap', // Xml|Soap|Http
-        'sendOriginatorCode'        => 'soap', // Xml|Soap|Http
+        'sendText'                  => 'xml', // Xml|Soap|Http
+        
+        'getCredits'                => 'xml', // Xml|Soap|Http
+        'checkOriginator'           => 'xml', // Xml|Soap|Http
+        'sendOriginatorCode'        => 'xml', // Xml|Soap|Http
         'unlockOriginator'          => 'soap', // Xml|Soap|Http
         'getDeliveryStatus'         => 'soap', // Xml|Soap|Http
         
-        'getVersion'                => 'http', // Soap|Http
+        'getVersion'                => 'soap', // Soap|Http
         'getStatusCodeDescription'  => 'soap', // Soap|Http
         'sendToken'                 => 'soap', // Soap|Http
         'verifyToken'               => 'soap'  // Soap|Http
