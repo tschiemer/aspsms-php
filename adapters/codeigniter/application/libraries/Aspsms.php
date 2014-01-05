@@ -1,6 +1,6 @@
 <?php
 
-require_once APPPATH . 'third_party/Aspsms/Soap/v2/SimpleClient.php';
+require_once APPPATH . 'third_party/Aspsms/SimpleClient.php';
 
 
 /**
