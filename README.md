@@ -9,6 +9,8 @@ WORK IN PROGRESS
 Todos
 ----------
 
-- implementation of all XML services, in particular binary SMS
+- XML driver: alternating servers on failure
+- XML services: sendPicture, sendLogo, sendGroupLogo, sendRingtone, sendBinaryData
 - Error handling
-- Testing (of ci adapter)
+- Finalizing CI adapter
+- Testing (in particular of CI adapter)
