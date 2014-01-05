@@ -25,11 +25,13 @@ class Aspsms extends Aspsms\SimpleClient
         
         $config_base = $this->CI->load->config('aspsms',TRUE);
         
+        // overwrite base configuration with any config values passed
         foreach($config as $k => $v)
         {
-            /**
-             * @todo..
-             */
+            $config_base[$k] = $v;
         }
+        
+        // initialize as usual
+        parent::__construct($config_base);
     }
 }
