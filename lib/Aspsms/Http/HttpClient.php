@@ -40,13 +40,17 @@ class HttpClient extends AbstractClient
      * @var array
      */
     var $curlOpt = array(
-        CURLOPT_USERAGENT       => 'aspsms-php v1',
-        CURLOPT_SSL_VERIFYPEER  => FALSe
+        CURLOPT_USERAGENT       => 'aspsms-php v1 http:1',
+        CURLOPT_SSL_VERIFYPEER  => FALSE
     );
     
     
     /**
      * Request configuration
+     * 
+     * Foreach request:
+     *      'service' := actual service name to use
+     *      'param'   := list of fields and default settings to use
      * 
      * @var array[]
      */
@@ -161,6 +165,21 @@ class HttpClient extends AbstractClient
     );
     
     
+    /**
+     * Instantiate and configure HttpClient.
+     * Possible options (to be passed in assoc array):
+     * 
+     *  "method"    optional, default "GET"      "GET" | "POST" 
+     *  "baseUrl"   optional, default as defined service base URL to use for requests
+     *  "curl"      optional                     associative array with options to pass to CURL
+     * 
+     * @see HttpClient::$method
+     * @see HttpClient::$baseUrl
+     * @see HttpClient::$curlOpt
+     * 
+     * @param array $options Associative array
+     * @throws AspsmsException
+     */
     public function __construct($options = array()) {
         
         if (isset($options['method']))
@@ -192,6 +211,13 @@ class HttpClient extends AbstractClient
         }
     }
     
+    /**
+     * Send given request.
+     * 
+     * @param \Aspsms\Request $request
+     * @throws AspsmsException
+     * @see AbstractClient::getResponse()
+     */
     public function send($request)
     {
         // Set internal request
@@ -243,9 +269,6 @@ class HttpClient extends AbstractClient
             $curlOpt[CURLOPT_POSTFIELDS] = $param;
         }
         
-//        var_dump($url);
-//        var_dump($curlOpt);
-//        exit;
         
         // attempt to perform request
         $ch = curl_init($url);
@@ -253,19 +276,26 @@ class HttpClient extends AbstractClient
         curl_setopt_array($ch, $curlOpt);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); // just always set this.
         $result = curl_exec($ch);
+        
+        if (curl_errno($ch) != 0)
+        {
+            $errstr = curl_error($ch);
+            throw new AspsmsException('CURL request failed: '. $errstr);
+        }
+        
         curl_close($ch);
         
-        if ($result === FALSE or ! preg_match('/<\?xml version="((?:\d|\.)+)" encoding="([a-zA-Z0-9_-]+)"\?>/',$result,$m))    
-        {
-            die("failed curl request\n");
-            exit("\n");
-        }
-        else
+        if (is_string($result) and preg_match('/<\?xml version="((?:\d|\.)+)" encoding="([a-zA-Z0-9_-]+)"\?>/',$result,$m))    
         {
             $dom = new \DOMDocument($m[1],$m[2]);
             $dom->loadXML($result);
             $this->response->result = $dom->textContent;
         }
+        else
+        {
+            throw new AspsmsException('Invalid non-XML response given.');
+        }
+        
         
         // Result post-processing
         if (method_exists($this, 'post_'.$serviceName))
@@ -278,6 +308,9 @@ class HttpClient extends AbstractClient
         }
     }
     
+    /**
+     * Default Post-Processor (applied if no specific PP to be used)
+     */
     public function post_default()
     {
         if (preg_match('/^StatusCode\:(\d+)$/',$this->response->result,$m))
@@ -291,6 +324,9 @@ class HttpClient extends AbstractClient
         }
     }
     
+    /**
+     * Post-Processing for CheckCredits
+     */
     public function post_CheckCredits()
     {   
         if (preg_match('/^Credits:((?:\d|\.)+)$/',$this->response->result,$m))
@@ -304,13 +340,10 @@ class HttpClient extends AbstractClient
         }
     }
     
-//    public function post_CheckOriginatorAuthorization()
-//    {
-//        $this->post_default();
-//    }
-    
     
     /**
+     * Post-Processing for GetStatusCodeDescription
+     * 
      * If invalid status code given, returns status code as description
      */
     public function post_GetStatusCodeDescription()
@@ -321,6 +354,9 @@ class HttpClient extends AbstractClient
         }
     }
     
+    /**
+     * Post-Processing for InquireDeliveryNotifications
+     */
     public function post_InquireDeliveryNotifications()
     {
         $result_str = $this->response->result;
@@ -342,12 +378,12 @@ class HttpClient extends AbstractClient
         $keys = $this->request->get('DeliveryStatusFields');
         if (empty($keys))
         {
-            $keys = range(1,7);
+            $keys = range(0,6);
         }
         $nr = $keys[0];
         
         // Select only last result for each tracking number
-        $index_by_nr = $this->request->get('DeliveryStatusSelect') == 'by_nr';
+        $index_by_nr = (boolean)$this->request->get('DeliveryStatusIndexing');
         
         // Create list of results
         $all_list = explode("\n",$result_str);
@@ -370,38 +406,11 @@ class HttpClient extends AbstractClient
         $this->response->result = $list;
     }
     
-//    public function post_SendOriginatorUnlockCode() {
-//        $this->post_default();
-//    }
-
-//    public function post_SendSimpleTextSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendTextSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendTokenSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendUnicodeSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SimpleWAPPush($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_UnlockOriginator($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_VerifyToken($parameters) {
-//        $this->post_default();
-//    }
-    
+    /**
+     * Post-Processing for VersionInfo
+     * 
+     * Creates an associative array with complete response, service version and build number.
+     */
     public function post_VersionInfo()
     {
         $result_str = $this->response->result;

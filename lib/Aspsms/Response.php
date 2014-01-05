@@ -16,18 +16,21 @@ class Response
     const STAT_OK = 1;
     
     /**
+     * Request name for which this is a response
      * @var string
      * @access protected
      */
     var $requestName = '';
     
     /**
+     * Status code
      * @var int
      * @access protected
      */
     var $statusCode = 0;
     
     /**
+     * Status Description
      * @var string
      * @access protected
      */
@@ -35,11 +38,17 @@ class Response
     
     
     /**
+     * Essential request result
      * @var mixed
      * @access protected
      */
     var $result;
     
+    /**
+     * Constructor
+     * 
+     * @param \Aspsms\Request,string $request
+     */
     public function __construct($request)
     {
         if ($request instanceof Request)
@@ -52,11 +61,20 @@ class Response
         }
     }
     
+    /**
+     * Getter
+     * @return string
+     */
     public function requestName()
     {
         return $this->requestName;
     }
     
+    /**
+     * Getter/setter. Sets new code iff a value is passed.
+     * @param NULL,int $code
+     * @return int
+     */
     public function statusCode($code = NULL)
     {
         if ($code !== NULL)
@@ -66,6 +84,11 @@ class Response
         return $this->statusCode;
     }
     
+    /**
+     * Getter/setter. Sets new description iff a value is passed.
+     * @param NULL,string $description
+     * @return string
+     */
     public function statusDescription($description = NULL)
     {
         if ($description !== NULL)
@@ -75,6 +98,10 @@ class Response
         return $this->statusDescription;
     }
     
+    /**
+     * Getter
+     * @return mixed
+     */
     public function result()
     {
         return $this->result;

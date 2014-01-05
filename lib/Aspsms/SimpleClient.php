@@ -6,7 +6,10 @@ require_once dirname(__FILE__) . '/AbstractSimpleClient.php';
 
 
 /**
- * Simple interface combining all possible drivers
+ * Simple interface combining all possible drivers.
+ * 
+ * Has an internal mapping of request names to drivers, thus drivers are loaded
+ * lazily as required.
  * 
  * @version 1
  * @package aspsms
@@ -24,27 +27,99 @@ class SimpleClient extends AbstractSimpleClient
     var $drivers = NULL;
     
     /**
+     * Driver options to use when instantiating drivers
+     * .
+     * @var array
+     * @see HttpClient, SoapClient, XmlClient
+     */
+    var $driverOptions = array(
+        'soap'  => array(),
+        'http'  => array(),
+        'xml'   => array()
+    );
+    
+    /**
      * Mapping of request names to driver names
      * 
      * @var string[]
      */
-    var $request2driver = array(
-        'sendText'                  => 'xml', // Xml|Soap|Http
+    var $requestMap = array(
         
-        'getCredits'                => 'xml', // Xml|Soap|Http
-        'checkOriginator'           => 'xml', // Xml|Soap|Http
-        'sendOriginatorCode'        => 'xml', // Xml|Soap|Http
-        'unlockOriginator'          => 'soap', // Xml|Soap|Http
-        'getDeliveryStatus'         => 'soap', // Xml|Soap|Http
+        'getVersion'                => 'soap',  // Soap|Http
+        'getCredits'                => 'xml',   // Xml|Soap|Http
+        'getStatusCodeDescription'  => 'soap',  // Soap|Http
         
-        'getVersion'                => 'soap', // Soap|Http
-        'getStatusCodeDescription'  => 'soap', // Soap|Http
-        'sendToken'                 => 'soap', // Soap|Http
-        'verifyToken'               => 'soap'  // Soap|Http
+        'checkOriginator'           => 'xml',   // Xml|Soap|Http
+        'sendOriginatorCode'        => 'xml',   // Xml|Soap|Http
+        'unlockOriginator'          => 'soap',  // Xml|Soap|Http
+        
+        'sendText'                  => 'xml',   // Xml|Soap|Http
+        'sendWapPush'               => 'soap',  // Xml|Soap|Http
+        'sendToken'                 => 'soap',  // Soap|Http
+        'verifyToken'               => 'soap',   // Soap|Http
+        'sendPicture'               => 'xml',   // Xml
+        'sendLogo'                  => 'xml',   // Xml
+        'sendGroupLogo'             => 'xml',   // Xml
+        'sendRingtone'              => 'xml',   // Xml
+        'sendVCard'                 => 'xml',   // Xml
+        'sendBinaryData'            => 'xml',   // Xml
+        'getDeliveryStatus'         => 'soap',  // Xml|Soap|Http
+        
     );
     
+    
+    /**
+     * Constructor
+     * 
+     * Sets up simple client and prepare for driver instantiation.
+     * 
+     * Driver options are passed as fields with names 'soapclient','httpclient','xmlclient' respectively.
+     * 
+     * The default request mapping can be changed when passing
+     * 
+     * @param array $options
+     * 
+     * @see AbstractSimpleClient::__construct()
+     * @see SoapClient::__construct()
+     * @see HttpClient::__construct()
+     * @see XmlClient::__construct()
+     */
     public function __construct($options = array()) {
         parent::__construct($options);
+        
+        // Which are the valid drivers?
+        $validDrivers = array_keys($this->driverOptions);
+        
+        // Set any driver options
+        foreach($validDrivers as $d)
+        {
+            if (isset($options[$d.'client']))
+            {
+                foreach($options[$d.'client'] as $k => $v)
+                {
+                    $this->driverOptions[$d][$k] = $v;
+                }
+            }
+        }
+        
+        // change the default request to driver mapping if so wanted
+        if (isset($options['requestMap']))
+        {
+            foreach($options['requestMap'] as $k => $v)
+            {
+                if ( ! array_key_exists($k, $this->requestMap))
+                {
+                    throw new AspsmsException('Request not recognized in setup: '. $k);
+                }
+                
+                if ( ! in_array($v,$validDrivers))
+                {
+                    throw new AspsmsException('Invalid driver passed: '.$v); 
+                }
+                
+                $this->requestMap[$k] = $v;
+            }
+        }
         
         $this->drivers = new \stdClass();
     }
@@ -60,23 +135,33 @@ class SimpleClient extends AbstractSimpleClient
     {
         $requestName = $request->getRequestName();
         
-        if ( ! isset($this->request2driver[$requestName]))
+        if ( ! isset($this->requestMap[$requestName]))
         {
             throw new AspsmsException('Request type not recognized: '.$requestName);
         }
         
         // Get driver name
-        $obj_name = strtolower($this->request2driver[$requestName]);
+        $obj_name = strtolower($this->requestMap[$requestName]);
         
         // If driver not loaded, well, load.
-        $this->loadDriver($obj_name, FALSE);
+        if ( ! isset($$this->drivers->obj_name))
+        {
+            $this->drivers->$obj_name = $this->loadDriver($obj_name, FALSE);
+        }
         
         return $this->drivers->$obj_name;
     }
     
-    public function loadDriver($obj_name, $return = FALSE)
+    /**
+     * Instantiates driver with internal options.
+     * 
+     * @param string $obj_name Driver name
+     * @return \Aspsms\class Instance of driver
+     * @throws AspsmsException
+     */
+    public function loadDriver($obj_name)
     {
-        if ( ! isset($this->drivers->$obj_name) or $return)
+//        if ( ! isset($this->drivers->$obj_name))
         {
             // Look for class XyzClient in file Xyz/XyzClient.php
             $class =ucfirst($obj_name) . 'Client';
@@ -102,24 +187,15 @@ class SimpleClient extends AbstractSimpleClient
             
             $class =  __NAMESPACE__ . '\\' . $class;
 
-            if ($return)
-            {
-                return new $class($options);
-            }
-            else
-            {
-                $this->drivers->$obj_name = new $class($options);
-            }
+            return new $class($options);
         }
     }
     
     
     /**
+     * Request: Get Soap or Http Service version (depends on assigned driver to use)
      * 
-     * For more details you can also access the last response and versin/build methods.
-     * 
-     * @see VersionInfoResponse lastResponse()
-     * @return string
+     * @return array Associative array with fields 'all','version','build' and corresponding meaning.
      */
     public function getVersion()
     {
@@ -145,14 +221,22 @@ class SimpleClient extends AbstractSimpleClient
     
     
     /**
+     * Request: Send a token a predefined token to recipients.
      * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $verificationCode
-     * @param string $message
-     * @param int $minutes
-     * @param boolean $case_sensitive
-     * @return boolean
+     * Official doc:
+     * 
+     * If MessageData is set, the placeholder <VERIFICATIONCODE> will be
+     * substituted with the verification code. If MessageData is not defined,
+     * or if MessageData does not contain the placeholder <VERIFICATIONCODE>,
+     * only the verification code is sent.
+     * 
+     * @param string $phoneNr           Recipient phone number
+     * @param string $reference         Your reference number
+     * @param string $verificationCode  Required verification code to send
+     * @param string $message           Message to send code with.
+     * @param int $minutes              Validity of token in minutes (default 5)
+     * @param boolean $case_sensitive   Is given code case sensitive?
+     * @return boolean                  Request success?
      */
     public function sendMyToken($phoneNr,$reference,$verificationCode,$message='',$minutes=5, $case_sensitive=0)
     {
@@ -168,16 +252,35 @@ class SimpleClient extends AbstractSimpleClient
     }
     
     /**
+     * Request: Send a token as generated by ASPSMS.COM, optionally give token mask.
      * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $mask
-     * @param string $message
-     * @param int $minutes
-     * @param boolean $case_sensitive
-     * @return boolean
+     * Official doc:
+     * 
+     * If MessageData is set, the placeholder <VERIFICATIONCODE> will be
+     * substituted with the verification code. If MessageData is not defined,
+     * or if MessageData does not contain the placeholder <VERIFICATIONCODE>,
+     * only the verification code is sent.
+     * 
+     * Official doc:
+     * 
+     * Used to have the ASPSMS generate a verification code by mask. The mask can contain the following special characters:
+     *
+     *  # : a digit
+     *  A : an alphabetic character
+     *  N : an alphanumeric character
+     *
+     *  All other characters are taken literally. If not specified, the Mask is "NNNN" by default.
+     *
+     * 
+     * @param string $phoneNr           Recipient phone number
+     * @param string $reference         Your reference number
+     * @param string $message           Message to send code with.
+     * @param string $mask              Token code mask to use (# -> number, A -> Alphabetical)
+     * @param int $minutes              Validity of token in minutes (default 5)
+     * @param boolean $case_sensitive   Is given code case sensitive?
+     * @return boolean                  Request success?
      */
-    public function sendGeneratedToken($phoneNr,$reference,$mask='',$message='',$minutes=5, $case_sensitive=0)
+    public function sendGeneratedToken($phoneNr,$reference,$message='',$mask='######',$minutes=5, $case_sensitive=0)
     {
         return $this->send(array(
             'RequestName'       => 'sendToken',
@@ -191,11 +294,15 @@ class SimpleClient extends AbstractSimpleClient
     }
     
     /**
+     * Request: attempt to validate token.
      * 
-     * @param string $phoneNr
-     * @param string $reference
-     * @param string $verificationCode
-     * @return boolean
+     * NOTE: If a token have been successfully validated, any future attempts (no matter the 
+     * verification code use) succeed.
+     * 
+     * @param string $phoneNr           Recipient phone number
+     * @param string $reference         Your reference number
+     * @param string $verificationCode  Required verification code to validate
+     * @return boolean                  Is given verification code for use valid?
      */
     public function validateToken($phoneNr,$reference,$verificationCode)
     {
@@ -207,4 +314,52 @@ class SimpleClient extends AbstractSimpleClient
         ));
     }
     
+    
+    /**
+     * Send VCARD (name + telephone nr) to designated recipients.
+     * 
+     * String Format:
+     *  ("<RECIPIENT_NR>" + {":<TRACKING_NR>"} ";" .. )+ 
+     * Eg:
+     *   00417777777
+     *   00417777777;00417777777;004177777777
+     *   00417777777:84612004;00417777777:74183874783
+     * 
+     * Array Format:
+     *  <TRACKING_NR> => <RECIPIENT_NR>
+     * 
+     * @param array,string $recipients
+     * @param string $name Name of VCARD
+     * @param string $phoneNr Phone number of VCARD
+     * @return boolean Request submitted successfully? (not delivery)
+     * @see \Aspsms\AbstractSimpleClient::getDeliveryStatus()
+     */
+    public function sendVCard($recipients, $name, $phoneNr)
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendVCard',
+            'Recipients'        => $recipients,
+            'VCard'             => array(
+                'name' => $name,
+                'phoneNr' => $phoneNr
+            )
+        ));
+    }
+    
+    /**
+     * 
+     * @todo TESTING
+     * 
+     * @param type $recipients
+     * @param type $url
+     * @return type
+     */
+    public function sendRingtone($recipients,$url)
+    {
+        return $this->send(array(
+            'RequestName'       => 'sendVCard',
+            'Recipients'        => $recipients,
+            'URLBinaryFile'     => $url
+        ));
+    }
 }

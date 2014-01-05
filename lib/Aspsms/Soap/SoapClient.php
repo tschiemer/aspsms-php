@@ -39,11 +39,15 @@ class SoapClient extends AbstractClient
      */
     var $soapOpt = array(
 //        'cache_wsdl'    => WSDL_CACHE_NONE,
-        'user_agent'    => 'aspsms-php v1'
+        'user_agent'    => 'aspsms-php v1 soap:1'
     );
     
     /**
      * Request configuration
+     * 
+     * Foreach request:
+     *      'service' := actual service name to use
+     *      'param'   := list of fields and default settings to use
      * 
      * @var array[]
      */
@@ -158,9 +162,17 @@ class SoapClient extends AbstractClient
     );
     
     /**
+     * Constructor, initialize and configure SoapClient
+     * Possible options (to be passed in assoc array):
      * 
-     * @param type $wsdl
-     * @param type $options
+     *  "wsdl"  optional    WSDL resource to rely upon
+     *  "soap"  optional    SOAP options
+     * 
+     * @see SoapClient::$wsdl
+     * @see SoapClient::$soapOpt
+     * 
+     * @param string $wsdl
+     * @param array $options
      * @throws \SoapFault Most likely
      */
     public function __construct($options = array())
@@ -176,9 +188,9 @@ class SoapClient extends AbstractClient
         
         $soapOpt = $this->soapOpt;
         
-        if (isset($options['opt']))
+        if (isset($options['soap']))
         {
-            array_merge($soapOpt,$options['opt']);
+            array_merge($soapOpt,$options['soap']);
         }
         
         try {
@@ -191,8 +203,11 @@ class SoapClient extends AbstractClient
     }
     
     /**
+     * Send given request.
      * 
-     * @param Request $request
+     * @param \Aspsms\Request $request
+     * @throws AspsmsException
+     * @see AbstractClient::getResponse()
      */
     public function send($request)
     {
@@ -221,8 +236,6 @@ class SoapClient extends AbstractClient
             $param = NULL;
         }
             
-//            var_dump($param);
-//            exit;
         
         // attempt to perform request
         try {
@@ -236,9 +249,7 @@ class SoapClient extends AbstractClient
         }
         catch (\SoapFault $e)
         {   
-            var_dump($e);
-            var_dump($this->soap->__getLastRequest());
-            exit("\n");
+            throw new AspsmsException('SoapFault: '.$e->getMessage());
         }
         
         // Result post-processing
@@ -252,6 +263,10 @@ class SoapClient extends AbstractClient
         }
     }
     
+    
+    /**
+     * Default Post-Processor (applied if no specific PP to be used)
+     */
     public function post_default()
     {
         if (preg_match('/^StatusCode\:(\d+)$/',$this->response->result,$m))
@@ -265,6 +280,9 @@ class SoapClient extends AbstractClient
         }
     }
     
+    /**
+     * Post-Processing for CheckCredits
+     */
     public function post_CheckCredits()
     {   
         if (preg_match('/^Credits:((?:\d|\.)+)$/',$this->response->result,$m))
@@ -278,11 +296,6 @@ class SoapClient extends AbstractClient
         }
     }
     
-//    public function post_CheckOriginatorAuthorization()
-//    {
-//        $this->post_default();
-//    }
-    
     
     /**
      * If invalid status code given, returns status code as description
@@ -295,6 +308,9 @@ class SoapClient extends AbstractClient
         }
     }
     
+    /**
+     * Post-Processing for InquireDeliveryNotifications
+     */
     public function post_InquireDeliveryNotifications()
     {
         $result_str = $this->response->result;
@@ -316,12 +332,12 @@ class SoapClient extends AbstractClient
         $keys = $this->request->get('DeliveryStatusFields');
         if (empty($keys))
         {
-            $keys = range(1,7);
+            $keys = range(0,6);
         }
         $nr = $keys[0];
         
         // Select only last result for each tracking number
-        $index_by_nr = $this->request->get('DeliveryStatusSelect') == 'by_nr';
+        $index_by_nr = (boolean)$this->request->get('DeliveryStatusIndexing');
         
         // Create list of results
         $all_list = explode("\n",$result_str);
@@ -344,38 +360,11 @@ class SoapClient extends AbstractClient
         $this->response->result = $list;
     }
     
-//    public function post_SendOriginatorUnlockCode() {
-//        $this->post_default();
-//    }
-
-//    public function post_SendSimpleTextSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendTextSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendTokenSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SendUnicodeSMS($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_SimpleWAPPush($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_UnlockOriginator($parameters) {
-//        $this->post_default();
-//    }
-    
-//    public function post_VerifyToken($parameters) {
-//        $this->post_default();
-//    }
-    
+    /**
+     * Post-Processing for VersionInfo
+     * 
+     * Creates an associative array with complete response, service version and build number.
+     */
     public function post_VersionInfo()
     {
         $result_str = $this->response->result;
@@ -387,7 +376,7 @@ class SoapClient extends AbstractClient
             return;
         }
         
-        
+        // api and version is found at beginning of response
         if (preg_match('/^([^ ]+)/',$result_str,$m))
         {
             $v = $m[1];
@@ -397,6 +386,7 @@ class SoapClient extends AbstractClient
             $v = '';
         }
         
+        // build number follows 'build:'
         if (preg_match('/build:((?:\d|\.)+)/',$result_str,$m))
         {
             $b = $m[1];

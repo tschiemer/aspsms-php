@@ -16,18 +16,35 @@ class XmlClient extends AbstractClient
     const ENCODING = 'ISO-8859-1';
     
     /**
-     * @var string
+     * Available urls for xml interface
+     * 
+     * @var string[]
      */
     var $servers = array(
-        'xml1.aspsms.com:5061/xmlsvr.asp',
-        'xml1.aspsms.com:5098/xmlsvr.asp',
-        'xml2.aspsms.com:5061/xmlsvr.asp',
-        'xml2.aspsms.com:5098/xmlsvr.asp'
+        'http://xml1.aspsms.com:5061/xmlsvr.asp',
+        'http://xml1.aspsms.com:5098/xmlsvr.asp',
+        'http://xml2.aspsms.com:5061/xmlsvr.asp',
+        'http://xml2.aspsms.com:5098/xmlsvr.asp'
     );
     
+    /**
+     * internal options
+     * 
+     * @var string[]
+     */
     var $options = array(
         'encodingIn' => 'UTF-8',
         'encodingOut'=> 'UTF-8'
+    );
+    
+    /**
+     * List of CURL options to use.
+     * 
+     * @var array
+     */
+    var $curlOpt = array(
+        CURLOPT_USERAGENT       => 'aspsms-php v1 xml:1',
+        CURLOPT_SSL_VERIFYPEER  => FALSE
     );
     
     /**
@@ -65,11 +82,6 @@ class XmlClient extends AbstractClient
                                             'UserKey'   => '',
                                             'Password'  => ''
                                        )),
-        'getStatusCodeDescription'  => array(
-                                        'action'   => 'GetStatusCodeDescription',
-                                        'param'     => array(
-                                        'StatusCode' => ''
-                                        )),
         
         'sendText'                  => array(
                                         'action'   => 'SendTextSMS',
@@ -88,7 +100,7 @@ class XmlClient extends AbstractClient
                                             'AffiliateId' => ''
                                         )),
         'sendWapPush'               => array(
-                                        'action'   => 'SimpleWAPPush',
+                                        'action'   => 'SendWAPPushSMS',
                                         'param'     => array(
                                             'UserKey'   => '',
                                             'Password'  => '',
@@ -103,33 +115,6 @@ class XmlClient extends AbstractClient
                                             'URLDeliveryNotification' => '',
                                             'URLNonDeliveryNotification' => '',
                                             'AffiliateId' => ''
-                                        )),
-        'sendToken'                 => array(
-                                        'action'   => 'SendTokenSMS',
-                                        'param'     => array(
-                                            'UserKey'   => '',
-                                            'Password'  => '',
-                                            'Recipients'=> '',
-                                            'Originator'=> '',
-                                            'MessageData'=>'',
-                                            'TokenReference'=>'',
-                                            'TokenValidity'=>'5',
-                                            'TokenMask' => '',
-                                            'VerificationCode' => '',
-                                            'TokenCaseSensitive' => '0',
-                                            'URLBufferedMessageNotification' => '',
-                                            'URLDeliveryNotification' => '',
-                                            'URLNonDeliveryNotification' => '',
-                                            'AffiliateId' => ''
-                                        )),
-        'verifyToken'               => array(
-                                        'action'   => 'VerifyToken',
-                                        'param'     => array(
-                                            'UserKey'   => '',
-                                            'Password'  => '',
-                                            'PhoneNumber'=> '',
-                                            'TokenReference'=>'',
-                                            'VerificationCode' => '',
                                         )),
         
         'getDeliveryStatus'         => array(
@@ -162,55 +147,89 @@ class XmlClient extends AbstractClient
                                             'Originator'=> '',
                                             'OriginatorUnlockCode'=>'',
                                             'AffiliateId'=> ''
-                                        ))
+                                        )),
+        'sendPicture'               => array(),
+        'sendLogo'                  => array(),
+        'sendGroupLogo'             => array(),
+        'sendRingtone'              => array(
+                                        'action'    => 'SendRingtone',
+                                        'param'     => array(
+                                            'UserKey'   => '',
+                                            'Password'  => '',
+                                            'Originator'=> '',
+                                            'AffiliateId'=> '',
+                                            'Recipients'=> '',
+                                            'URLBinaryFile' => ''
+                                        )),
+        'sendVCard'                 => array(
+                                        'action'    => 'SendVCard',
+                                        'param'     => array(
+                                            'UserKey'   => '',
+                                            'Password'  => '',
+                                            'Originator'=> '',
+                                            'AffiliateId'=> '',
+                                            'Recipients'=> '',
+                                            'VCard'     => array()
+                                        )),
+        'sendBinaryData'            => array()
     );
 //    
-//    var $requests = array(
-//        'getCredits',
-//        
-//        'sendText',
-//        'sendWapPush',
-//        
-//        'sendToken',
-//        'verifyToken',
-//        
-//        'getDeliveryStatus',
-//        
-//        'checkOriginator',
-//        'sendOriginatorCode',
-//        'unlockOriginator',
-//        
-//        'sendPicture',
-//        'sendLogo',
-//        'sendGroupLogo',
-//        'sendRingtone',
-//        'sendVCard',
-//        'sendBinaryData'
-//    );
+//    public function ShowCredits(); 
 //    
-    public function __construct() {
+//    public function SendTextSMS();
+//    public function SendWAPPushSMS();
+//    
+//    public function InquireDeliveryNotifications();
+//    
+//    public function SendOriginatorUnlockCode();
+//    public function UnlockOriginator();
+//    public function CheckOriginatorAuthorization();
+//    
+//    public function SendRandomLogo();
+//    public function SendPictureMessage();
+//    public function SendLogo();
+//    public function SendGroupLogo();
+//    public function SendRingtone();
+//    public function SendVCard();
+//    public function SendBinaryData();
+
+    public function __construct()
+    {   
+        if (isset($options['servers']))
+        {
+            $this->servers = $options['servers'];
+        }
+        
+        if (isset($options['encodingIn']))
+        {
+            $this->options['encodingIn'] = $options['encodingIn'];
+        }
+        if (isset($options['encodingOut']))
+        {
+            $this->options['encodingOut'] = $options['encodingOut'];
+        }
+        
+        if (isset($options['curl']))
+        {
+            foreach($options['curl'] as $k => $v)
+            {
+                $this->curlOpt[$k] = $v;
+            }
+        }
         
         $entities = array(
-            chr(38) => '&amp;#38;',
-            chr(60) => '&amp;#60;',
-            chr(62) => '&amp;#62;'
+            chr(38) => '&#38;',
+            chr(60) => '&#60;',
+            chr(62) => '&#62;'
         );
         for($i = 128; $i < 256; $i++)
         {
-            $entities[chr($i)] = sprintf('&amp;#%03d;',$i);
+            $entities[chr($i)] = sprintf('&#%03d;',$i);
         }
         $this->entities = array(
             'plain' => array_keys($entities),
             'xml'   => array_values($entities)
         );
-        
-        $test = mb_convert_encoding('ä',self::ENCODING,'UTF-8');
-//        var_dump($this->entities);
-        var_dump(str_replace($this->entities['plain'], $this->entities['xml'], $test));
-    }
-    
-    public function canProcess($request) {
-        return TRUE;
     }
     
     public function send($request) {
@@ -238,13 +257,13 @@ class XmlClient extends AbstractClient
         {
             foreach($request->extractArray($cfg['param']) as $k => $v)
             {
-                if (method_exists($this, 'pre_'.$k))
+                if (method_exists($this, 'set_'.$k))
                 {
-                    $this->{'pre_'.$k}($v);
+                    $this->{'set_'.$k}($v);
                 }
                 else
                 {
-                    $this->pre_default($k,$v);
+                    $this->set_default($k,$v);
                 }
             }
         }
@@ -253,26 +272,26 @@ class XmlClient extends AbstractClient
         
 //        $this->requestDOM->normalizeDocument();
         $xml = $this->requestDOM->saveXML();
+        
+        var_dump($xml);
+//        exit;
 //        
         $ch = curl_init($this->servers[0]);
 
+        curl_setopt_array($ch, $this->curlOpt);
+        
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POSTFIELDS => $xml
+        ));
 //        curl_setopt($ch, CURLOPT_PORT, 5061);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); // just always set this.
         
         $result = curl_exec($ch);
         
         curl_close($ch);
         
-        if ($result === FALSE or ! preg_match('/<\?xml version="((?:\d|\.)+)"\?>/',$result,$m))    
-        {
-            var_dump($result);
-            die("failed curl request\n");
-            exit("\n");
-        }
-        else
+        if (is_string($result) and preg_match('/<\?xml version="((?:\d|\.)+)"\?>/',$result,$m))    
         {
             var_dump($result);
             
@@ -288,7 +307,22 @@ class XmlClient extends AbstractClient
             );
 //            $this->response->result = $dom->textContent;
         }
-//        var_dump($this->requestDOM);
+        else   
+        {
+            var_dump($result);
+            die("failed curl request\n");
+        }
+
+        
+        // Result post-processing
+        if (method_exists($this, 'post_'.$actionName))
+        {
+            $this->{'post_'.$actionName}();
+        }
+        else
+        {
+            $this->post_default();
+        }
     }
     
     /**
@@ -303,9 +337,7 @@ class XmlClient extends AbstractClient
         {
             $value = mb_convert_encoding($value, self::ENCODING, $this->options['encodingIn']);
         }
-        $value = str_replace($this->entities['plain'], $this->entities['xml'], $value);
-        var_dump($value);
-        return $value;
+        return str_replace($this->entities['plain'], $this->entities['xml'], $value);
     }
     
     /**
@@ -318,28 +350,26 @@ class XmlClient extends AbstractClient
     {
         if ($this->options['encodingOut'] !== self::ENCODING)
         {
-            return mb_convert_encoding($value, $this->options['encodingOut'], self::ENCODING);
+            $value = mb_convert_encoding($value, $this->options['encodingOut'], self::ENCODING);
         }
-        return mb_encode_numericentity($value, array(0x80, 0xff, 0, 0xff), self::ENCODING);
+        return $value;
     }
     
-    public function pre_default($key,$value)
+    public function set_default($key,$value)
     {
 //        if ( ! empty($value))
         {
             $node = new \DOMElement($key, $this->encodeIn($value));
-    //        $node = new \DOMCharacterData();
-    //        $node->appendData($this->encodeIn($value));
             $this->requestDOM->firstChild->appendChild($node);
         }
     }
     
-    public function pre_UserKey($value)
+    public function set_UserKey($value)
     {
-        $this->pre_default('Userkey', $value);
+        $this->set_default('Userkey', $value);
     }
     
-    public function pre_Recipients($value)
+    public function set_Recipients($value)
     {
         if (strlen($value) == 0)
         {
@@ -355,10 +385,7 @@ class XmlClient extends AbstractClient
             
             $this->requestDOM->firstChild->appendChild($recipientNode);
             
-//            $a=new \DOMElement('PhoneNumber', $phone_track[0]);
-            $a = new \DOMCharacterData();
-            $a->data = $phone_track[0];
-            $recipientNode->appendChild($a);
+            $recipientNode->appendChild(new \DOMElement('PhoneNumber', $phone_track[0]));
             
             if (count($phone_track) == 1)
             {
@@ -371,25 +398,48 @@ class XmlClient extends AbstractClient
         }
     }
     
+    public function set_MessageText($value)
+    {
+        $this->set_default('MessageData', $value);
+    }
     
-//    
-//    public function ShowCredits(); 
-//    
-//    public function SendTextSMS();
-//    public function SendWAPPushSMS();
-//    
-//    public function InquireDeliveryNotifications();
-//    
-//    public function SendOriginatorUnlockCode();
-//    public function UnlockOriginator();
-//    public function CheckOriginatorAuthorization();
-//    
-//    public function SendRandomLogo();
-//    public function SendPictureMessage();
-//    public function SendLogo();
-//    public function SendGroupLogo();
-//    public function SendRingtone();
-//    public function SendVCard();
-//    public function SendBinaryData();
+    public function set_TransactionReferenceNumbers($value)
+    {
+        if (strlen($value) == 0)
+        {
+            return;
+        }
+        
+        $list = explode(';',$value);
+        foreach($list as $refNr)
+        {
+            $this->requestDOM->firstChild->appendChild(new \DOMElement('TransRefNumber', $refNr));
+        }
+    }
+    
+    public function set_VCard($value)
+    {
+        if (empty($value) or ! is_array($value))
+        {
+            return;
+        }
+        
+        $vcard = new \DOMElement('VCard');
+            
+        $this->requestDOM->firstChild->appendChild($vcard);
+
+        $vcard->appendChild(new \DOMElement('VName', $value['name']));
+        $vcard->appendChild(new \DOMElement('VPhoneNumber', $value['phoneNr']));
+    }
+    
+    public function post_default()
+    {
+        $this->response->result = $this->response->statusCode() == 1;
+    }
+    
+    public function post_ShowCredits()
+    {
+        $this->response->result = floatval($this->responseDOM->getElementsByTagName('Credits')->item(0)->textContent);
+    }
 }
 

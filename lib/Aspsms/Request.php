@@ -14,6 +14,7 @@ namespace Aspsms;
 class Request
 {   
     /**
+     * Request name
      * @var string
      */
     var $requestName = NULL;
@@ -61,6 +62,10 @@ class Request
         $this->requestName = $name;
     }
     
+    /**
+     * Getter
+     * @return string
+     */
     public function getRequestName()
     {
         return $this->requestName;
@@ -105,14 +110,9 @@ class Request
     
     public function extractArray($fieldList = array())
     {
-//        var_dump($this->fields);
-//        var_dump($fieldList);
-        
         $filtered = array_intersect_key($this->fields, $fieldList);
         
         $r = array_merge($fieldList,$filtered);
-        
-//        var_dump($r);
         
         return $r;
     }
@@ -195,23 +195,6 @@ class Request
     }
     
     /**
-     * 
-     * @param string $message
-     */
-//    public function setMessageText($message = NULL)
-//    {
-//        $this->fields['MessageText'] = $message === NULL ? '' : $message;
-//    }
-    
-    /**
-     * @param string $affiliateId
-     */
-//    public function setAffiliateId($affiliateId)
-//    {
-//        $this->AffiliateId = $affiliateId;
-//    }
-    
-    /**
      * Sets intended delivery time.
      * 
      * Formats:
@@ -220,6 +203,7 @@ class Request
      *  DateTime    
      * 
      * @param int|string|\DateTime $datetime
+     * @see \Aspsms\Request::setTimeZone()
      */
     public function setDeferredDeliveryTime($datetime)
     {
@@ -343,14 +327,7 @@ class Request
      */
     public function setTokenValidity($minutes = 5)
     {
-//        if ( ! empty($valid))
-//        {
-            $this->fields['TokenValidity'] = strval(intval($minutes));
-//        }
-//        else
-//        {
-//            $this->fields['TokenValidity'] = '';
-//        }
+        $this->fields['TokenValidity'] = strval(intval($minutes));
     }
     
     /**

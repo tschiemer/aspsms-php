@@ -68,6 +68,21 @@ abstract class AbstractSimpleClient
     );
     
     
+    /**
+     * Contructor
+     * 
+     * Possible settings:
+     * 
+     *      'userkey'   => usekey (required)
+     *      'password'  => password (required)
+     *      'originator'=> originator (required)
+     *      'affiliateid'=> affiliate id (optional)
+     *      'urls'      => callback urls, assoc array of urls (a.s. setCallbackURL())
+     * 
+     * @see AbstractSimpleClient::setCallbackURL()
+     * 
+     * @param array $options Associative array of generic settings
+     */
     public function __construct($options = array())
     {   
         foreach($options as $key => $value)
@@ -184,6 +199,21 @@ abstract class AbstractSimpleClient
     /**
      * Get current default notification URL.
      * 
+     *  1. simple:
+     *      SMS.URLNonDeliveryNotification = "http://www.mysite.com/sms/notdelivered.asp?ID="
+     *      When the TransactionReferenceNumber is e.g. 3152, the URL will be loaded like this: 
+     *      http://www.mysite.com/sms/notdelivered.asp?ID=3152
+     * 
+     *  2. detailed:
+     *      http://www.yourhost.com/Delivered.asp?SCTS=<SCTS>&DSCTS=<DSCTS>&RSN=<RSN>&DST=<DST>&TRN=<TRN>
+     * 
+     *      <RCPNT> (Recipient, Mobilenumber)
+     *      <SCTS> (Servicecenter Timestamp, Submissiondate)
+     *      <DSCTS> (Delivery Servicecenter Timestamp, Notificationdate)
+     *      <RSN> (Reasoncode)
+     *      <DST> (Deliverystatus)
+     *      <TRN> (Transactionreferencenummer)
+     * 
      * @param NULL|string $type
      * @return string|array Returns string/url IFF <$type> given, array with all urls otherwise.
      */
@@ -199,7 +229,7 @@ abstract class AbstractSimpleClient
     /**
      * Sets default callback urls
      * 
-     * @param string $type
+     * @param string $type 'success'/'URLDeliveryNotification', 'error'/'URLNonDeliveryNotification', 'buffered'/'URLBufferedMessageNotification'
      * @param string $url
      * @return \Aspsms\AbstractSimpleClient
      */
@@ -244,7 +274,7 @@ abstract class AbstractSimpleClient
     
     
     /**
-     * Request: Is (numeric) originator valid?
+     * Request: Is (numeric) originator valid, can it be used respectively?
      * 
      * @param NULL|string $originator
      * @return boolean
@@ -304,10 +334,33 @@ abstract class AbstractSimpleClient
     
     
     /**
-     * Request: get delivery status of 
+     * Request: get delivery status of  tracking
+     * 
+     * Returns array of delivery statuses.
+     * 
+     * If $index_by_nr == TRUE formatted as (only last the last result foreach ref-nr):
+     *  array(
+     *    'REF-NR-1' => array($keys[0] => 'REF-NR-1', $keys[1] => '..', .. , $keys[6] => '..'),
+     *    'REF-NR-2' => array($keys[0] => 'REF-NR-2', $keys[1] => '..', .. , $keys[6] => '..'),
+     *    'REF-NR-3' => array($keys[0] => 'REF-NR-3', $keys[1] => '..', .. , $keys[6] => '..')
+     *      ..
+     *  )
+     * 
+     * Else (with possible ref-nr duplicates):
+     * 
+     *  array(
+     *    array($keys[0] => 'REF-NR-1', $keys[1] => '..', .. , $keys[6] => '..'),
+     *    array($keys[0] => 'REF-NR-1', $keys[1] => '..', .. , $keys[6] => '..'),
+     *    array($keys[0] => 'REF-NR-2', $keys[1] => '..', .. , $keys[6] => '..')
+     *      ..
+     *  )
+     * 
+     * 
      * @param string|array $trackingNumbers
+     * @param boolean $index_by_nr Index result set by reference number (TRUE)? or just return complete list of results (FALSE)?
+     * @param array $keys   Delivery Status field names to use
      */
-    public function getDeliveryStatus($trackingNumbers, $select='by_nr', $keys=array())
+    public function getDeliveryStatus($trackingNumbers, $index_by_nr=TRUE, $keys=array())
     {
         if (is_array($keys) and count($keys) != 7)
         {
@@ -318,10 +371,30 @@ abstract class AbstractSimpleClient
         return $this->send(array(
             'RequestName' => 'getDeliveryStatus',
             'TransactionReferenceNumbers' => $trackingNumbers,
+            'DeliveryStatusIndexing' => $index_by_nr,
             'DeliveryStatusFields' => $keys
         ));
     }
     
+    /**
+     * Request: send Text sms
+     * 
+     * 
+     * String Format:
+     *  ("<RECIPIENT_NR>" + {":<TRACKING_NR>"} ";" .. )+ 
+     * Eg:
+     *   00417777777
+     *   00417777777;00417777777;004177777777
+     *   00417777777:84612004;00417777777:74183874783
+     * 
+     * Array Format:
+     *  <TRACKING_NR> => <RECIPIENT_NR>
+     * 
+     * @param array,string $recipients
+     * @param string $text
+     * @return boolean  Request success? (not delivery success)
+     * @see \Aspsms\AbstractSimpleClient::getDeliveryStatus()
+     */
     public function sendText($recipients,$text)
     {
         return $this->send(array(
@@ -331,6 +404,25 @@ abstract class AbstractSimpleClient
         ));
     }
     
+    /**
+     * Request: send WAP push
+     * 
+     * String Format:
+     *  ("<RECIPIENT_NR>" + {":<TRACKING_NR>"} ";" .. )+ 
+     * Eg:
+     *   00417777777
+     *   00417777777;00417777777;004177777777
+     *   00417777777:84612004;00417777777:74183874783
+     * 
+     * Array Format:
+     *  <TRACKING_NR> => <RECIPIENT_NR>
+     * 
+     * @param array, string $recipients
+     * @param string $url
+     * @param string $description
+     * @return string request success? (not delivery success))
+     * @see \Aspsms\AbstractSimpleClient::getDeliveryStatus()
+     */
     public function sendWapPush($recipients,$url,$description='')
     {
         return $this->send(array(
@@ -360,7 +452,7 @@ abstract class AbstractSimpleClient
      * Delay delivery of SMS by <$seconds>
      * 
      * @param int $seconds
-     * @param int|\DateTimeZone $timezone IFF int: offset to GMT
+     * @param int|\DateTimeZone $timezone, if int: offset to GMT
      * @return \Aspsms\AbstractSimpleClient
      */
     public function deferTime($seconds,$timezone=0)
@@ -387,10 +479,18 @@ abstract class AbstractSimpleClient
     }
     
     /**
+     * Sets callback URLS.
      * 
-     * @param type $urls
-     * @param type $to
+     * Example calls:
+     * 
+     *  $client->callbacks(array('success'=>'http://...','error'=>'http://..'));
+     * 
+     *  $client->callbacks('success' => 'http://..');
+     * 
+     * @param array,string $urls
+     * @param NULL,string $to
      * @return \Aspsms\AbstractSimpleClient
+     * @see AbstractSimpleClient::setCallbackURL()
      */
     public function callbacks($urls = array(), $to = NULL)
     {
@@ -442,7 +542,7 @@ abstract class AbstractSimpleClient
     
     
     /**
-     * Sets any request option.
+     * Sets any request option for current/next request.
      * 
      * @param string|array $key_or_array
      * @param NULL|mixed $value
@@ -454,6 +554,7 @@ abstract class AbstractSimpleClient
         // Initialize message data if not done yet.
         if ($this->currentRequest === NULL)
         {
+            // set default request parameters (typically used).
             $this->currentRequest = new Request(array(
                 'UserKey'       => $this->userkey,
                 'Password'      => $this->password,
@@ -481,7 +582,7 @@ abstract class AbstractSimpleClient
     }
     
     /**
-     * Clear any message settings set through <set()>
+     * Clear any message settings set through <set()> for current/next request.
      * 
      * @see set()
      * @return \Aspsms\AbstractSimpleClient
@@ -495,6 +596,8 @@ abstract class AbstractSimpleClient
     
     
     /**
+     * Get driver to actually submit request.
+     * 
      * @return AbstractClient Description
      * @access protected
      */
@@ -505,6 +608,7 @@ abstract class AbstractSimpleClient
      * @param array $options
      * @return mixed
      * @throws AspsmsException
+     * @see \Aspsms\AbstractClient
      */
     public function send($options = array())
     {
