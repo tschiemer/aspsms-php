@@ -22,6 +22,7 @@
 $config['userkey']    = '';
 $config['password']   = '';
 
+
 /**
  * Originator
  * 
@@ -30,6 +31,14 @@ $config['password']   = '';
  * NOTE: if using a numeric sender, you must first unlock the originator using the given methods.
  */
 $config['originator'] = '';
+
+
+/**
+ * Affiliate Id
+ * 
+ * @var string
+ */
+//$config['affiliateid'] = '';
 
 
 /**
