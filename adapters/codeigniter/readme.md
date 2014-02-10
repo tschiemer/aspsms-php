@@ -5,8 +5,11 @@ Readme for aspsms-soap codeigniter adapter
  2. Place /lib/Aspsms folder as is in codeigniter/application/third_party
  3. Configure `application/config/aspsms.php` with your aspsms.com credentials.
 
+In controller load `aspsms` library as you usually could and call analogous as in demo.php
+(but through CI library calling convention, naturally).
 
-*** Using language file
+
+=== Using language file
 
 The English language file contains the official localization for the delivery statuses
 as well as delivery success/fail reason codes. They are easily accessible as follows:

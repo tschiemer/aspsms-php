@@ -34,4 +34,43 @@ class Aspsms extends Aspsms\SimpleClient
         // initialize as usual
         parent::__construct($config_base);
     }
+    
+    
+    /**
+     * Request: Get description to given status code.
+     * 
+     * @param string|int $statusCode
+     * @param boolean $force_query Do not rely on database of known status codes, force query.
+     * @return string
+     */
+    public function getStatusDescription($statusCode, $force_query = FALSE)
+    {   
+        $param = array(
+            'RequestName' => 'getStatusCodeDescription',
+            'StatusCode'  => $statusCode,
+            'Userkey'     => $this->userkey,
+            'Password'    => $this->password
+        );
+        
+        if ( ! $force_query)
+        {
+            $this->CI->load->language('aspsms','english');
+            $status = $this->CI->lang('reason_'.int($statusCode));
+            if ($status !== NULL)
+            {
+                // Simulate actual request in case any other request/response
+                // processing would take place.
+                $this->lastRequest = new Aspsms\Request($param);
+                
+                $this->lastResponse = new \Aspsms\Response($this->lastRequest);
+                $this->lastResponse->statusCode(\Aspsms\Response::STAT_OK);
+                $this->lastResponse->result = $status;
+                
+                return $this->lastResponse->result();
+            }
+        }
+        
+        
+        return $this->send($param);
+    }
 }
