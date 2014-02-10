@@ -140,58 +140,6 @@ class Aspsms_demo extends CI_Controller
         $this->load->view('aspsms_demo/track',$vars);
     }
     
-    public function send_wap()
-    {
-        $recipient = $this->input->post('recipient');
-        $url  = $this->input->post('url');
-        $description   = $this->input->post('description');
-        
-        try {
-            $success = $this->aspsms->sendWapPush($recipient, $url, $description);
-        }
-        catch(\Aspsms\AspsmsException $e) {
-            show_error('ASPSMS send error: '. $e->getMessage());
-        }
-        
-        if ( ! $success)
-        {
-            $statusCode = $this->aspsms->getLastStatusCode();
-            $statusDescription = $this->aspsms->getStatusDescription($statusCode);
-            show_error('Unexpected server response status '.$statusCode. ': '.$statusDescription);
-        }
-        
-        $this->load->view('aspsms_demo/success',array(
-            'redirect' => 3,
-            'messages' => array("WAP for recipient {$recipient} submitted to ASPSMS server.")
-        ));
-    }
-    
-    public function send_vcard()
-    {
-        $recipient = $this->input->post('recipient');
-        $name   = $this->input->post('vcard_name');
-        $phone   = $this->input->post('vcard_phone');
-        
-        try {
-            $success = $this->aspsms->sendVCard($recipient, $name, $phone);
-        }
-        catch(\Aspsms\AspsmsException $e) {
-            show_error('ASPSMS send error: '. $e->getMessage());
-        }
-        
-        if ( ! $success)
-        {
-            $statusCode = $this->aspsms->getLastStatusCode();
-            $statusDescription = $this->aspsms->getStatusDescription($statusCode);
-            show_error('Unexpected server response status '.$statusCode. ': '.$statusDescription);
-        }
-        
-        $this->load->view('aspsms_demo/success',array(
-            'redirect' => 3,
-            'messages' => array("VCard for recipient {$recipient} submitted to ASPSMS server.")
-        ));
-    }
-    
     
     public function check_originator()
     {
@@ -267,6 +215,7 @@ class Aspsms_demo extends CI_Controller
         ));
     }
     
+    
     public function send_token()
     {
         $phoneNr = $this->input->post('recipient');
@@ -319,6 +268,60 @@ class Aspsms_demo extends CI_Controller
         $this->load->view('aspsms_demo/success',array(
             'redirect' => 3,
             'messages' => array("Token received by `{$phoneNr}` is valid.")
+        ));
+    }
+    
+    
+    public function send_wap()
+    {
+        $recipient = $this->input->post('recipient');
+        $url  = $this->input->post('url');
+        $description   = $this->input->post('description');
+        
+        try {
+            $success = $this->aspsms->sendWapPush($recipient, $url, $description);
+        }
+        catch(\Aspsms\AspsmsException $e) {
+            show_error('ASPSMS send error: '. $e->getMessage());
+        }
+        
+        if ( ! $success)
+        {
+            $statusCode = $this->aspsms->getLastStatusCode();
+            $statusDescription = $this->aspsms->getStatusDescription($statusCode);
+            show_error('Unexpected server response status '.$statusCode. ': '.$statusDescription);
+        }
+        
+        $this->load->view('aspsms_demo/success',array(
+            'redirect' => 3,
+            'messages' => array("WAP for recipient {$recipient} submitted to ASPSMS server.")
+        ));
+    }
+    
+    
+    public function send_vcard()
+    {
+        $recipient = $this->input->post('recipient');
+        $name   = $this->input->post('vcard_name');
+        $phone   = $this->input->post('vcard_phone');
+        
+        try {
+            $success = $this->aspsms->sendVCard($recipient, $name, $phone);
+        }
+        catch(\Aspsms\AspsmsException $e) {
+            show_error('ASPSMS send error: '. $e->getMessage());
+        }
+        
+        if ( ! $success)
+        {
+            $statusCode = $this->aspsms->getLastStatusCode();
+            $statusDescription = $this->aspsms->getStatusDescription($statusCode);
+            show_error('Unexpected server response status '.$statusCode. ': '.$statusDescription);
+        }
+        
+        $this->load->view('aspsms_demo/success',array(
+            'redirect' => 3,
+            'messages' => array("VCard for recipient {$recipient} submitted to ASPSMS server.")
         ));
     }
     
