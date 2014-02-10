@@ -194,11 +194,11 @@ class SoapClient extends AbstractClient
         }
         
         try {
-            $this->soap = new \SoapClient($wsdl, $soapOpt);
+            $this->soap = @new \SoapClient($wsdl, $soapOpt);
         }
         catch (\SoapFault $e) {
             $this->soap = NULL;
-            throw new AspsmsException('Could not retrieve WSDL or is invalid.');
+            throw new AspsmsException('Could not retrieve WSDL or is invalid:'.$e->getMessage());
         }
     }
     

@@ -131,6 +131,15 @@ abstract class AbstractSimpleClient
         return $this->lastResponse;
     }
     
+    public function getLastStatusCode()
+    {
+        if ( empty($this->lastResponse))
+        {
+            return NULL;
+        }
+        return $this->lastResponse->statusCode();
+    }
+    
     /***********************************************
      * Set default/common settings
      */
@@ -199,21 +208,6 @@ abstract class AbstractSimpleClient
     /**
      * Get current default notification URL.
      * 
-     *  1. simple:
-     *      SMS.URLNonDeliveryNotification = "http://www.mysite.com/sms/notdelivered.asp?ID="
-     *      When the TransactionReferenceNumber is e.g. 3152, the URL will be loaded like this: 
-     *      http://www.mysite.com/sms/notdelivered.asp?ID=3152
-     * 
-     *  2. detailed:
-     *      http://www.yourhost.com/Delivered.asp?SCTS=<SCTS>&DSCTS=<DSCTS>&RSN=<RSN>&DST=<DST>&TRN=<TRN>
-     * 
-     *      <RCPNT> (Recipient, Mobilenumber)
-     *      <SCTS> (Servicecenter Timestamp, Submissiondate)
-     *      <DSCTS> (Delivery Servicecenter Timestamp, Notificationdate)
-     *      <RSN> (Reasoncode)
-     *      <DST> (Deliverystatus)
-     *      <TRN> (Transactionreferencenummer)
-     * 
      * @param NULL|string $type
      * @return string|array Returns string/url IFF <$type> given, array with all urls otherwise.
      */
@@ -228,6 +222,21 @@ abstract class AbstractSimpleClient
     
     /**
      * Sets default callback urls
+     * 
+     *  1. simple:
+     *      SMS.URLNonDeliveryNotification = "http://www.mysite.com/sms/notdelivered.asp?ID="
+     *      When the TransactionReferenceNumber is e.g. 3152, the URL will be loaded like this: 
+     *      http://www.mysite.com/sms/notdelivered.asp?ID=3152
+     * 
+     *  2. detailed:
+     *      http://www.yourhost.com/Delivered.asp?SCTS=<SCTS>&DSCTS=<DSCTS>&RSN=<RSN>&DST=<DST>&TRN=<TRN>
+     * 
+     *      <RCPNT> (Recipient, Mobilenumber)
+     *      <SCTS> (Servicecenter Timestamp, Submissiondate)
+     *      <DSCTS> (Delivery Servicecenter Timestamp, Notificationdate)
+     *      <RSN> (Reasoncode)
+     *      <DST> (Deliverystatus)
+     *      <TRN> (Transactionreferencenummer)
      * 
      * @param string $type 'success'/'URLDeliveryNotification', 'error'/'URLNonDeliveryNotification', 'buffered'/'URLBufferedMessageNotification'
      * @param string $url

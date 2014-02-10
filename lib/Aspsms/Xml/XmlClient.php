@@ -232,6 +232,13 @@ class XmlClient extends AbstractClient
         );
     }
     
+    /**
+     * Send given request.
+     * 
+     * @param \Aspsms\Request $request
+     * @throws AspsmsException
+     * @see AbstractClient::getResponse()
+     */
     public function send($request) {
         
         // Set internal request
@@ -432,11 +439,17 @@ class XmlClient extends AbstractClient
         $vcard->appendChild(new \DOMElement('VPhoneNumber', $value['phoneNr']));
     }
     
+    /**
+     * Default Post-Processor
+     */
     public function post_default()
     {
         $this->response->result = $this->response->statusCode() == 1;
     }
     
+    /**
+     * Post-Processing for ShowCredits
+     */
     public function post_ShowCredits()
     {
         $this->response->result = floatval($this->responseDOM->getElementsByTagName('Credits')->item(0)->textContent);

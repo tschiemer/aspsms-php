@@ -53,7 +53,7 @@ class SimpleClient extends AbstractSimpleClient
         'sendOriginatorCode'        => 'xml',   // Xml|Soap|Http
         'unlockOriginator'          => 'soap',  // Xml|Soap|Http
         
-        'sendText'                  => 'xml',   // Xml|Soap|Http
+        'sendText'                  => 'http',   // Xml|Soap|Http
         'sendWapPush'               => 'soap',  // Xml|Soap|Http
         'sendToken'                 => 'soap',  // Soap|Http
         'verifyToken'               => 'soap',   // Soap|Http
@@ -84,7 +84,8 @@ class SimpleClient extends AbstractSimpleClient
      * @see HttpClient::__construct()
      * @see XmlClient::__construct()
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         parent::__construct($options);
         
         // Which are the valid drivers?
@@ -144,7 +145,7 @@ class SimpleClient extends AbstractSimpleClient
         $obj_name = strtolower($this->requestMap[$requestName]);
         
         // If driver not loaded, well, load.
-        if ( ! isset($$this->drivers->obj_name))
+        if ( ! isset($this->drivers->obj_name))
         {
             $this->drivers->$obj_name = $this->loadDriver($obj_name, FALSE);
         }
