@@ -105,3 +105,7 @@ Outputs
     Unknown subscriber
     
     
+
+
+License: LGPL v3
+----------
