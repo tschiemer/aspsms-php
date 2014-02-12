@@ -3,6 +3,12 @@ aspsms-php
 
 Service clients for sending SMS through aspsms.com. CodeIgniter Adapter/demo included.
 
+Features
+----------
+ - Interface abstractions for SOAP, HTTP and XML aspsms.com services
+ - Simple Interface for the lazy (hurray!), either for single service or composite.
+ - Library adapter for CodeIgniter (with extensive demo)
+ - Clear-ish documentation of simple interfaces
 
 Requirements
 ----------
