@@ -10,6 +10,44 @@
  * @link https://github.com/tschiemer/aspsms-php
  */
 
+$lang['status_1'] = 'OK';
+$lang['status_2'] = 'Connect failed.';
+$lang['status_3'] = 'Authorization failed.';
+$lang['status_4'] = 'Binary file not found. Please check the location.';
+$lang['status_5'] = 'Not enough credits available. Please recharge your account to proceed.';
+$lang['status_6'] = 'Time out error.';
+$lang['status_7'] = 'Transmission error. Please try it again.';
+$lang['status_8'] = 'Invalid UserKey. Please check the spelling of the UserKey.';
+$lang['status_9'] = 'Invalid Password.';
+$lang['status_10'] = 'Invalid originator. A maximum of 11 characters is allowed for alphanumeric originators.';
+$lang['status_11'] = 'Invalid message date. Please verify the data.';
+$lang['status_12'] = 'Invalid binary data. Please verify the data.';
+$lang['status_13'] = 'Invalid binary file. Please check the file type.';
+$lang['status_14'] = 'Invalid MCC. Please check the number.';
+$lang['status_15'] = 'Invalid MNC. Please check the number.';
+$lang['status_16'] = 'Invalid XSer.';
+$lang['status_17'] = 'Invalid URL buffered message notification string.';
+$lang['status_18'] = 'Invalid URL delivery notification string.';
+$lang['status_19'] = 'Invalid URL non delivery notification string.';
+$lang['status_20'] = 'Missing a recipient. Please specify at least one recipient.';
+$lang['status_21'] = 'Missing binary data. Please specify some data.';
+$lang['status_22'] = 'Invalid deferred delivery time. Please check the format.';
+$lang['status_23'] = 'Missing transaction reference number.';
+$lang['status_24'] = 'Service temporarely not available.';
+$lang['status_25'] = 'User access denied.';
+$lang['status_28'] = 'No Originator Restrictions.';
+$lang['status_29'] = 'Originator Authorization Pending.';
+$lang['status_30'] = 'Originator Not Authorized.';
+$lang['status_31'] = 'Originator already authorized';
+$lang['status_32'] = 'No Notification Recipient Restrictions.';
+$lang['status_33'] = 'Notification Recipient Authorization Pending.';
+$lang['status_34'] = 'Notification Recipient Not Authorized.';
+$lang['status_35'] = 'Notification Recipient Already Authorized.';
+$lang['status_36'] = 'Security Token authorization pending';
+$lang['status_37'] = 'Security Token not authorized';
+$lang['status_38'] = 'Security Token not found';
+$lang['status_39'] = 'Security Token already authorized';
+
 $lang['delivery_-1'] = 'Not yet submitted or rejected';
 $lang['delivery_0'] = 'Delivered';
 $lang['delivery_1'] = 'Buffered';
