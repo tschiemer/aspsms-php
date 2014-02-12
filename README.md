@@ -113,6 +113,7 @@ Official Documentation
 ----------
 https://webservice.aspsms.com/aspsmsx2.asmx
 http://www.aspsms.com/xml/doc/xmlsvr191.pdf
+http://www.aspsms.de/vbscript_class/doc.htm
 http://www.aspsms.de/newsletter/html/en/200905/
 
 
