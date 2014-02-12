@@ -54,8 +54,8 @@ class Aspsms extends Aspsms\SimpleClient
         
         if ( ! $force_query)
         {
-            $this->CI->load->language('aspsms','english');
-            $status = $this->CI->lang('reason_'.int($statusCode));
+            $this->CI->lang->load('aspsms','english');
+            $status = $this->CI->lang->line('status_'.intval($statusCode));
             if ($status !== NULL)
             {
                 // Simulate actual request in case any other request/response
