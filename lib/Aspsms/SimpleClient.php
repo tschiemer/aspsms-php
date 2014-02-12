@@ -45,25 +45,25 @@ class SimpleClient extends AbstractSimpleClient
      */
     var $requestMap = array(
         
-        'getVersion'                => 'soap',  // Soap|Http
-        'getCredits'                => 'xml',   // Xml|Soap|Http
-        'getStatusCodeDescription'  => 'soap',  // Soap|Http
+        'getVersion'                => 'http',  // Soap|Http
+        'getCredits'                => 'http',   // Xml|Soap|Http
+        'getStatusCodeDescription'  => 'http',  // Soap|Http
         
-        'checkOriginator'           => 'xml',   // Xml|Soap|Http
-        'sendOriginatorCode'        => 'xml',   // Xml|Soap|Http
-        'unlockOriginator'          => 'soap',  // Xml|Soap|Http
+        'checkOriginator'           => 'http',   // Xml|Soap|Http
+        'sendOriginatorCode'        => 'http',   // Xml|Soap|Http
+        'unlockOriginator'          => 'http',  // Xml|Soap|Http
         
         'sendText'                  => 'http',   // Xml|Soap|Http
-        'sendWapPush'               => 'soap',  // Xml|Soap|Http
-        'sendToken'                 => 'soap',  // Soap|Http
-        'verifyToken'               => 'soap',   // Soap|Http
+        'sendWapPush'               => 'http',  // Xml|Soap|Http
+        'sendToken'                 => 'http',  // Soap|Http
+        'verifyToken'               => 'http',   // Soap|Http
         'sendPicture'               => 'xml',   // Xml
         'sendLogo'                  => 'xml',   // Xml
         'sendGroupLogo'             => 'xml',   // Xml
         'sendRingtone'              => 'xml',   // Xml
         'sendVCard'                 => 'xml',   // Xml
         'sendBinaryData'            => 'xml',   // Xml
-        'getDeliveryStatus'         => 'soap',  // Xml|Soap|Http
+        'getDeliveryStatus'         => 'http',  // Xml|Soap|Http
         
     );
     
