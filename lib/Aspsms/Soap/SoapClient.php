@@ -308,6 +308,33 @@ class SoapClient extends AbstractClient
         }
     }
     
+    public function post_CheckOriginatorAuthorization()
+    {
+        $result_str = $this->response->result;
+        
+        switch($result_str)
+        {
+            case 'StatusCode:31':
+                $this->response->result = TRUE;
+                $this->response->statusCode(31);
+                break;
+            case 'StatusCode:30':
+                $this->response->result = FALSE;
+                $this->response->statusCode(30);
+                break;
+            default:
+                $this->response->result = NULL;
+                if (preg_match('/^StatusCode\:(\d+)$/',$result_str,$m))
+                {
+                    $this->response->statusCode($m[1]);
+                }
+                else
+                {
+                    $this->response->statusCode(0);
+                }
+        }
+    }
+    
     /**
      * Post-Processing for InquireDeliveryNotifications
      */
