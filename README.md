@@ -13,13 +13,15 @@ Requirements
 
 
 
-
 Todos
 ----------
 
  - XML driver: alternating servers on failure
  - XML services: sendPicture, sendLogo, sendGroupLogo, sendRingtone, sendBinaryData
  - Error/Exception handling, in particular: differentiate between service fail and negative reply
+ - Understand:
+    Short Message Service Centre 4.0 EMI - UCP Interface Specification
+    Short Message Service Centre (SMSC) External Machine Interface (EMI) Description, EmiSpec_44a.pdf
 
 
 
@@ -105,6 +107,14 @@ Outputs
     Unknown subscriber
     
     
+
+
+Official Documentation
+----------
+https://webservice.aspsms.com/aspsmsx2.asmx
+http://www.aspsms.com/xml/doc/xmlsvr191.pdf
+http://www.aspsms.de/newsletter/html/en/200905/
+
 
 
 License: LGPL v3
