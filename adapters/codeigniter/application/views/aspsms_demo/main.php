@@ -151,7 +151,7 @@
         <h4>2.3.1. Check validity of originator</h4>
         <label>Originator</label>
         <?php echo form_open('aspsms_demo/check_originator'); ?>
-        <input name="originator_test" placeholder="0031677777XX" type="text"/>
+        <input name="originator" placeholder="0031677777XX" type="text"/>
         <br/>
         <button>Check</button>
         <?php echo form_close(); ?>
@@ -159,15 +159,17 @@
         <h4>2.3.2. Request originator unlock code</h4>
         <label>Originator</label>
         <?php echo form_open('aspsms_demo/request_originator_unlock'); ?>
-        <input name="originator_test" placeholder="0031677777XX" type="text"/>
+        <input name="originator" placeholder="0031677777XX" type="text"/>
         <br/>
         <button>Check</button>
         <?php echo form_close(); ?>
         
         <h4>2.3.3. Unlock originator</h4>
-        <label>Originator</label>
         <?php echo form_open('aspsms_demo/unlock_originator'); ?>
-        <input name="originator_test" placeholder="0031677777XX" type="text"/>
+        <label>Code</label>
+        <input name="code" placeholder="&lt;Code you get from above request&gt;" type="text"/>
+        <label>Originator</label>
+        <input name="originator" placeholder="0031677777XX" type="text"/>
         <br/>
         <button>Check</button>
         <?php echo form_close(); ?>
@@ -217,7 +219,7 @@
         
         <h4>2.4.2. Validate token</h4>
         
-        <?php echo form_open('aspsms_demo/send_token'); ?>
+        <?php echo form_open('aspsms_demo/validate_token'); ?>
         <label>Recipient / PhoneNumber</label>
         <input name="recipient" placeholder="003167777XX"/>
         <label>Reference</label>

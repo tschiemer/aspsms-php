@@ -127,6 +127,9 @@ class Aspsms_demo extends CI_Controller
     
     public function track()
     {
+        $this->lang->load('aspsms','english');
+        $this->load->helper('language');
+        
         $trackingnr = $this->input->get('trackingnr');
         
         try {
@@ -136,7 +139,15 @@ class Aspsms_demo extends CI_Controller
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
+        if (!is_array($status))
+        {
+            show_error('Unexpected server response');
+        }
+        
+//        var_dump($status);
         $vars['status'] = $status;
+        $vars['trackingnr'] = $trackingnr;
+        
         $this->load->view('aspsms_demo/track',$vars);
     }
     
@@ -152,16 +163,18 @@ class Aspsms_demo extends CI_Controller
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
-        if ( ! $success)
+        if ($success === NULL)
         {
             $statusCode = $this->aspsms->getLastStatusCode();
             $statusDescription = $this->aspsms->getStatusDescription($statusCode);
             show_error('Unexpected server response status '.$statusCode. ': '.$statusDescription);
         }
         
+        $message = $success ? "Originator `{$originator}` is valid for use." : "Originator `{$originator}` is NOT valid for use.";
+        
         $this->load->view('aspsms_demo/success',array(
             'redirect' => 5,
-            'messages' => array("Originator `{$originator}` is valid for use.")
+            'messages' => array($message)
         ));
     }
     
@@ -177,26 +190,36 @@ class Aspsms_demo extends CI_Controller
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
-        if ( ! $success)
+        if ( ! $success and $this->aspsms->getLastStatusCode() == 31)
+        {
+            $this->load->view('aspsms_demo/success',array(
+                'redirect' => 3,
+                'messages' => array("Originator unlock request for `{$originator}`failed, as originator is already authorized.")
+            ));
+        }
+        elseif ( ! $success)
         {
             $statusCode = $this->aspsms->getLastStatusCode();
             $statusDescription = $this->aspsms->getStatusDescription($statusCode);
             show_error('Originator not valid or could not be verified due to '.$statusCode. ': '.$statusDescription);
         }
-        
-        $this->load->view('aspsms_demo/success',array(
-            'redirect' => 3,
-            'messages' => array("Originator unlock request sent for `{$originator}`. {$originator} should shortly receive an unlock code.")
-        ));
+        else
+        {
+            $this->load->view('aspsms_demo/success',array(
+                'redirect' => 3,
+                'messages' => array("Originator unlock request sent for `{$originator}`. {$originator} should shortly receive an unlock code.")
+            ));
+        }
     }
     
     
     public function unlock_originator()
     {
+        $code = $this->input->post('code');
         $originator = $this->input->post('originator');
         
         try {
-            $success = $this->aspsms->requestOriginatorUnlockCode($originator);
+            $success = $this->aspsms->unlockOriginator($code,$originator);
         }
         catch(\Aspsms\AspsmsException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());

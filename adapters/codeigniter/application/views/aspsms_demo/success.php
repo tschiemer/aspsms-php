@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>ASPSMS PHP Library Adapter for CodeIgniter - DEMO</title>
         <?php if ($redirect): ?>
-        <meta http-equiv="refresh" value="<?php echo site_url('aspsms_demo'); ?>; <?php echo $redirect; ?>"/>
+        <meta http-equiv="refresh" content="<?php echo $redirect; ?>;URL='<?php echo site_url('aspsms_demo'); ?>'" />
         <?php endif; ?>
     </head>
     <body>
