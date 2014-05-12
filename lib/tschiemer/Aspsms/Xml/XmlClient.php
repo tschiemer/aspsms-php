@@ -1,17 +1,23 @@
 <?php
 
-namespace Aspsms;
+namespace tschiemer\Aspsms\Xml;
+use \tschiemer\Aspsms as Aspsms;
+
+if ( ! function_exists('curl_init'))
+{
+    throw new \Exception('CURL extension required for Aspsms\HttpClient');
+}
 
 /**
  * Driver for XML-based services.
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
  * @link https://github.com/tschiemer/aspsms-php
  */
-class XmlClient extends AbstractClient
+class XmlClient extends Aspsms\AbstractClient
 {
     const ENCODING = 'ISO-8859-1';
     
@@ -254,7 +260,7 @@ class XmlClient extends AbstractClient
         $actionName = $cfg['action'];
         
         // Initialize new response object
-        $this->response = new Response($request);
+        $this->response = new Aspsms\Response($request);
         
         
         $this->requestDOM = new \DOMDocument('1.0','ISO-8859-1');

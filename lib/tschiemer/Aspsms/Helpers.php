@@ -1,22 +1,25 @@
 <?php
 
-namespace Aspsms;
+namespace tschiemer\Aspsms;
 
 /**
- * Webservice statuscode strings
+ * Text helper functions
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
  * @link https://github.com/tschiemer/aspsms-php
- * 
- * @param int|string $code
- * @return string|null
  */
-if ( ! function_exists('statusDescriptionString'))
-{
-    function statusDescriptionString($code)
+class Strings {
+ 
+    /**
+     * Webservice statuscode strings
+     * 
+     * @param int|string $code
+     * @return string|null
+     */   
+    public static function statusDescription($code)
     {
         switch(intval($code))
         {
@@ -61,23 +64,15 @@ if ( ! function_exists('statusDescriptionString'))
             default: return NULL;
         }
     }
-}
-
-/**
- * Code to description map of delivery statuses
- * 
- * @version 1
- * @package aspsms
- * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
- * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
- * @link https://github.com/tschiemer/aspsms-php
- * 
- * @param int|string $code
- * @return string|null
- */
-if ( ! function_exists('deliveryStatusString'))
-{
-    function deliveryStatusString($code)
+    
+    
+    /**
+     * Code to description map of delivery statuses
+     * 
+     * @param int|string $code
+     * @return string|null
+     */
+    public static function deliveryStatus($code)
     {
         switch (intval($code))
         {
@@ -89,24 +84,15 @@ if ( ! function_exists('deliveryStatusString'))
             default: return NULL;
         }
     }
-}
-
-/**
- * Code to description map of tracking reason codes
- * 
- * @version 1
- * @package aspsms
- * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
- * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
- * @link https://github.com/tschiemer/aspsms-php
- * 
- * @see AbstractClient::getDeliveryStatus()
- * @param int|string $code
- * @return string|null
- */
-if ( ! function_exists('reasonCodeString'))
-{
-    function reasonCodeString($code)
+    
+    /**
+     * Code to description map of tracking reason codes
+     * 
+     * @see AbstractClient::getDeliveryStatus()
+     * @param int|string $code
+     * @return string|null
+     */
+    public static function reasonCode($code)
     {
         switch (intval($code))
         {

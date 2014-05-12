@@ -1,18 +1,17 @@
 <?php
 
-require_once APPPATH . 'third_party/Aspsms/SimpleClient.php';
-
+require_once APPPATH . 'third_party/tschiemer/autoload.php';
 
 /**
  * Adapter interface of aspsms-php for CodeIgniter
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms.adapter.codeigniter
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
  * @link https://github.com/tschiemer/aspsms-php
  */
-class Aspsms extends Aspsms\SimpleClient
+class Aspsms extends tschiemer\Aspsms\SimpleClient
 {
     /**
      * @var CI_Controller

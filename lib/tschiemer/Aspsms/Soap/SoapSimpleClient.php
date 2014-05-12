@@ -1,20 +1,18 @@
 <?php
 
-namespace Aspsms;
-
-require_once dirname(__FILE__) . '/../AbstractSimpleClient.php';
-require_once dirname(__FILE__) . '/HttpClient.php';
+namespace tschiemer\Aspsms\Soap;
+use \tschiemer\Aspsms as Aspsms;
 
 /**
- * Simple client interface for HTTP service only.
+ * Simple client class for SOAP driver only.
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
  * @link https://github.com/tschiemer/aspsms-php
  */
-class HttpSimpleClient extends AbstractSimpleClient
+class SoapSimpleClient extends Aspsms\AbstractSimpleClient
 {
     /**
      * @var SoapClient
@@ -25,32 +23,36 @@ class HttpSimpleClient extends AbstractSimpleClient
      * Constructor
      * 
      * Sets up simple client and client/driver, thus taking any parameters for these to
-     * where any parameters for the driver must be fields of the base field 'httpclient'
+     * where any parameters for the driver must be fields of the base field 'soapclient'
      * eg
      * 
      *  new HttpSimpleClient(array(
      *      'userkey'       => 'k',
      *      'password'      => 'p',
      *      'originator'    => 'o',
-     *      'httpclient'    => array('method'=>'POST', .. )
+     *      'soapclient'    => array(
+     *          'wsdl'  => 'http://..',
+     *          'soap'  => array(cache_wsdl => WSDL_CACHE_NONE,..)
+     *      )
      *  ));
      * 
      * 
      * @param assoc $options
      * 
      * @see AbstractSimpleClient::__construct()
-     * @see HttpClient::__construct()
+     * @see SoapClient::__construct()
      */
     public function __construct($options = array()) {
         parent::__construct($options);
         
-        if ( ! isset($options['httpclient']) or ! is_array($options['httpclient']))
+        if (!isset($options['soapclient']) or  !is_array($options['soapclient']))
         {
-            $options['httpclient'] = array();
+            $options['soapclient'] = array();
         }
         
-        $this->driver = new HttpClient($options['httpclient']);
+        $this->driver = new SoapClient($options['soapclient']);
     }
+    
     
     /**
      * Get driver for simple client.
@@ -64,7 +66,7 @@ class HttpSimpleClient extends AbstractSimpleClient
     
     
     /**
-     * Request: Get Http Service version.
+     * Request: Get Soap Service version.
      * 
      * @return array Associative array with fields 'all','version','build' and corresponding meaning.
      */
@@ -146,7 +148,7 @@ class HttpSimpleClient extends AbstractSimpleClient
      * @param string $phoneNr           Recipient phone number
      * @param string $reference         Your reference number
      * @param string $message           Message to send code with.
-     * @param string $mask              Token code mask to use (# -> number, A -> Alphabetical)
+     * @param string $mask              Token code mask to use
      * @param int $minutes              Validity of token in minutes (default 5)
      * @param boolean $case_sensitive   Is given code case sensitive?
      * @return boolean                  Request success?

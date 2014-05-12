@@ -1,13 +1,11 @@
 <?php
 
-namespace Aspsms;
-
-require_once dirname(__FILE__) . '/AbstractClient.php';
+namespace tschiemer\Aspsms;
 
 /**
  * Simple interface for aspsms maintaining common data and states
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
@@ -556,7 +554,7 @@ abstract class AbstractSimpleClient
      * @param string|array $key_or_array
      * @param NULL|mixed $value
      * @return \Aspsms\Soap\v2\SimpleClient
-     * @throws AspsmsException
+     * @throws ServiceException
      */
     public function set($key_or_array = NULL, $value = NULL)
     {
@@ -616,7 +614,7 @@ abstract class AbstractSimpleClient
      * 
      * @param array $options
      * @return mixed
-     * @throws AspsmsException
+     * @throwsServiceExceptionn
      * @see \Aspsms\AbstractClient
      */
     public function send($options = array())
@@ -625,7 +623,7 @@ abstract class AbstractSimpleClient
         
         if ($this->currentRequest->getRequestName() == NULL)
         {
-            throw new AspsmsException('RequestName of request not defined, please use a given method or define properly yourself.');
+            throw neServiceExceptionon('RequestName of request not defined, please use a given method or define properly yourself.');
         }
         
         $request = $this->lastRequest = $this->currentRequest;
@@ -636,7 +634,7 @@ abstract class AbstractSimpleClient
         // Sanity check
         if ( ! $driver->canProcess($request))
         {
-            throw new AspsmsException('Driver can not process request '.$request->getRequestName());
+            throw nServiceExceptionion('Driver can not process request '.$request->getRequestName());
         }
         
         // send request

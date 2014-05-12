@@ -1,14 +1,11 @@
 <?php
 
-namespace Aspsms;
-
-require_once dirname(__FILE__) . '/Request.php';
-require_once dirname(__FILE__) . '/Response.php';
+namespace tschiemer\Aspsms;
 
 /**
  * Interface for service drivers, can be used as standalone components.
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
@@ -81,7 +78,7 @@ abstract class AbstractClient
     /**
      * @param array $request 
      * @return array
-     * @throws AspsmsException
+     * @throws ServiceException
      */
     abstract public function send($request);
     
@@ -103,5 +100,3 @@ abstract class AbstractClient
     }
 }
 
-
-class AspsmsException extends \Exception {}

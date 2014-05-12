@@ -1,11 +1,11 @@
 <?php
 
-namespace Aspsms;
+namespace tschiemer\Aspsms;
 
 /**
  * Shared response object used for request abstraction
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>

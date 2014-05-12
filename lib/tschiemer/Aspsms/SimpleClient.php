@@ -1,8 +1,6 @@
 <?php
 
-namespace Aspsms;
-
-require_once dirname(__FILE__) . '/AbstractSimpleClient.php';
+namespace tschiemer\Aspsms;
 
 
 /**
@@ -11,7 +9,7 @@ require_once dirname(__FILE__) . '/AbstractSimpleClient.php';
  * Has an internal mapping of request names to drivers, thus drivers are loaded
  * lazily as required.
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
@@ -110,12 +108,12 @@ class SimpleClient extends AbstractSimpleClient
             {
                 if ( ! array_key_exists($k, $this->requestMap))
                 {
-                    throw new AspsmsException('Request not recognized in setup: '. $k);
+                    throw new ServiceException('Request not recognized in setup: '. $k);
                 }
                 
                 if ( ! in_array($v,$validDrivers))
                 {
-                    throw new AspsmsException('Invalid driver passed: '.$v); 
+                    throw newServiceExceptionn('Invalid driver passed: '.$v); 
                 }
                 
                 $this->requestMap[$k] = $v;
@@ -130,7 +128,7 @@ class SimpleClient extends AbstractSimpleClient
      * 
      * @param Request $requestType
      * @return AbstractClient
-     * @throws AspsmsException
+     * @throwServiceExceptionon
      */
     public function driver(&$request)
     {
@@ -138,7 +136,7 @@ class SimpleClient extends AbstractSimpleClient
         
         if ( ! isset($this->requestMap[$requestName]))
         {
-            throw new AspsmsException('Request type not recognized: '.$requestName);
+            throw nServiceExceptionion('Request type not recognized: '.$requestName);
         }
         
         // Get driver name
@@ -158,23 +156,25 @@ class SimpleClient extends AbstractSimpleClient
      * 
      * @param string $obj_name Driver name
      * @return \Aspsms\class Instance of driver
-     * @throws AspsmsException
+     * @thrServiceExceptiontion
      */
     public function loadDriver($obj_name)
     {
 //        if ( ! isset($this->drivers->$obj_name))
         {
             // Look for class XyzClient in file Xyz/XyzClient.php
-            $class =ucfirst($obj_name) . 'Client';
-            $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'.php';
-
-            if ( ! file_exists($path))
-            {
-                throw new AspsmsException('Could not load driver file '.$path.' for driver '.$d);
-            }
-
-            // Load file
-            require_once $path;
+            $className = __NAMESPACE__ . '\\' . ucfirst($obj_name) . '\\' . ucfirst($obj_name) . 'Client';
+//            $namespace = __NAMESPACE__ . '\\' . ucfirst($obj_name);
+            
+//            $path = dirname(__FILE__) . '/' . ucfirst($obj_name) . '/'.$class.'.php';
+//
+//            if ( ! file_exists($path))
+//            {
+//                throw new AspsmsException('Could not load driver file '.$path.' for driver '.$d);
+//            }
+//
+//            // Load file
+//            require_once $path;
 
             // Are there any options
             if (isset($this->options[$obj_name]))
@@ -186,9 +186,9 @@ class SimpleClient extends AbstractSimpleClient
                 $options = array();
             }
             
-            $class =  __NAMESPACE__ . '\\' . $class;
+//            $class =  __NAMESPACE__ . '\\' . $class;
 
-            return new $class($options);
+            return new $className($options);
         }
     }
     

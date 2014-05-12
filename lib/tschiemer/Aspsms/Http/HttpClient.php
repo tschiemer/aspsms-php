@@ -1,46 +1,48 @@
 <?php
 
-namespace Aspsms;
+namespace tschiemer\Aspsms\Http;
+use \tschiemer\Aspsms as Aspsms;
 
-require_once dirname(__FILE__) . '/../AbstractClient.php';
-
-if ( ! class_exists('\SoapClient'))
+if ( ! function_exists('curl_init'))
 {
-    throw new AspsmsException('SOAP extension required for Aspsms\SoapClient');
+    throw new \Exception('CURL extension required for \tschiemer\Aspsms\HttpClient');
 }
 
 /**
- * SOAP driver / interface.
+ * Driver for HTTP based services.
  * 
- * @version 1
+ * @version 1.1.0
  * @package aspsms
  * @license LGPL v3 http://www.gnu.org/licenses/lgpl-3.0.txt 
  * @copyright 2013 Philip Tschiemer, <tschiemer@filou.se>
  * @link https://github.com/tschiemer/aspsms-php
  */
-class SoapClient extends AbstractClient
+class HttpClient extends Aspsms\AbstractClient
 {
     /**
-     * Default WSDL source
+     * Request base url
      * 
      * @var string
      */
-    var $wsdl = 'https://webservice.aspsms.com/aspsmsx2.asmx?WSDL';
+    var $baseUrl = 'https://webservice.aspsms.com/aspsmsx2.asmx/';
     
     /**
-     * @var \SoapClient
+     * HTTP method to use
+     * 
+     * @var string
      */
-    var $soap;
+    var $method = 'POST';
     
     /**
-     * List or default SOAP options
+     * List of CURL options to use.
      * 
      * @var array
      */
-    var $soapOpt = array(
-//        'cache_wsdl'    => WSDL_CACHE_NONE,
-        'user_agent'    => 'aspsms-php v1 soap:1'
+    var $curlOpt = array(
+        CURLOPT_USERAGENT       => 'aspsms-php v1 http:1',
+        CURLOPT_SSL_VERIFYPEER  => FALSE
     );
+    
     
     /**
      * Request configuration
@@ -161,44 +163,50 @@ class SoapClient extends AbstractClient
                                         ))
     );
     
+    
     /**
-     * Constructor, initialize and configure SoapClient
+     * Instantiate and configure HttpClient.
      * Possible options (to be passed in assoc array):
      * 
-     *  "wsdl"  optional    WSDL resource to rely upon
-     *  "soap"  optional    SOAP options
+     *  "method"    optional, default "GET"      "GET" | "POST" 
+     *  "baseUrl"   optional, default as defined service base URL to use for requests
+     *  "curl"      optional                     associative array with options to pass to CURL
      * 
-     * @see SoapClient::$wsdl
-     * @see SoapClient::$soapOpt
+     * @see HttpClient::$method
+     * @see HttpClient::$baseUrl
+     * @see HttpClient::$curlOpt
      * 
-     * @param string $wsdl
-     * @param array $options
-     * @throws \SoapFault Most likely
+     * @param array $options Associative array
+     * @throws AspsmsException
      */
-    public function __construct($options = array())
-    {
-        if (isset($options['wsdl']))
+    public function __construct($options = array()) {
+        
+        if (isset($options['method']))
         {
-            $wsdl = $options['wsdl'];
-        }
-        else
-        {
-            $wsdl = $this->wsdl;
+            $method = strtoupper($options['method']);
+            switch($method)
+            {
+                case 'GET':
+                case 'POST':
+                    $this->method = $method;
+                    break;
+                
+                default:
+                    throw new Aspsms\ServiceException('Invalid method type for HttpClient: '.$method);
+            }
         }
         
-        $soapOpt = $this->soapOpt;
-        
-        if (isset($options['soap']))
+        if (isset($options['baseUrl']))
         {
-            array_merge($soapOpt,$options['soap']);
+            $this->baseUrl = $options['baseUrl'];
         }
         
-        try {
-            $this->soap = @new \SoapClient($wsdl, $soapOpt);
-        }
-        catch (\SoapFault $e) {
-            $this->soap = NULL;
-            throw new AspsmsException('Could not retrieve WSDL or is invalid:'.$e->getMessage());
+        if (isset($options['curl']))
+        {
+            foreach($options['curl'] as $k => $v)
+            {
+                $this->curlOpt[$k] = $v;
+            }
         }
     }
     
@@ -224,33 +232,69 @@ class SoapClient extends AbstractClient
         $serviceName = $cfg['service'];
         
         // Initialize new response object
-        $this->response = new Response($request);
+        $this->response = new Aspsms\Response($request);
         
         // Prepare parameters
         if (isset($cfg['param']))
         {
-            $param = $request->extractObject($cfg['param']);
+            $param_pre = $request->extractArray($cfg['param']);
         }
         else
         {
-            $param = NULL;
+            $param_pre = array();
         }
-            
+        
+        $param = array();
+        foreach($param_pre as $k => $v)
+        {
+            // @todo key dependent encoding?
+            $param[] = urlencode($k) . '=' . urlencode($v);
+        }
+        $param = implode('&',$param);
+        
+        // Set Service URL
+        $url = $this->baseUrl . $serviceName .  '?';
+        
+        // Get a copy of curl options
+        $curlOpt = $this->curlOpt;
+        
+        // Adapt settings according to used method
+        if ($this->method == 'GET')
+        {
+             $url .=  $param;
+        }
+        else
+        {
+            $curlOpt[CURLOPT_POSTFIELDS] = $param;
+        }
+        
         
         // attempt to perform request
-        try {
-            
-            // returns stdClass
-            $soapResponse = $this->soap->$serviceName($param);
-            
-            // get result field (name depends on service name (for some wierd reason)
-            $this->response->result = $soapResponse->{$serviceName.'Result'};
-            
+        $ch = curl_init($url);
+
+        curl_setopt_array($ch, $curlOpt);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); // just always set this.
+        $result = curl_exec($ch);
+        
+        if (curl_errno($ch) != 0)
+        {
+            $errstr = curl_error($ch);
+            throw new AspsmsServiceExceptionn('CURL request failed: '. $errstr);
         }
-        catch (\SoapFault $e)
-        {   
-            throw new AspsmsException('SoapFault: '.$e->getMessage());
+        
+        curl_close($ch);
+        
+        if (is_string($result) and preg_match('/<\?xml version="((?:\d|\.)+)" encoding="([a-zA-Z0-9_-]+)"\?>/',$result,$m))    
+        {
+            $dom = new \DOMDocument($m[1],$m[2]);
+            $dom->loadXML($result);
+            $this->response->result = $dom->textContent;
         }
+        else
+        {
+            throw new AspsmServiceExceptionon('Invalid non-XML response given.');
+        }
+        
         
         // Result post-processing
         if (method_exists($this, 'post_'.$serviceName))
@@ -263,7 +307,6 @@ class SoapClient extends AbstractClient
         }
     }
     
-    
     /**
      * Default Post-Processor (applied if no specific PP to be used)
      */
@@ -271,7 +314,7 @@ class SoapClient extends AbstractClient
     {
         if (preg_match('/^StatusCode\:(\d+)$/',$this->response->result,$m))
         {
-            $this->response->result = intval($m[1]) == Response::STAT_OK;
+            $this->response->result = intval($m[1]) == Aspsms\Response::STAT_OK;
             $this->response->statusCode($m[1]);
         }
         else
@@ -288,7 +331,7 @@ class SoapClient extends AbstractClient
         if (preg_match('/^Credits:((?:\d|\.)+)$/',$this->response->result,$m))
         {
             $this->response->result = floatval($m[1]);
-            $this->response->statusCode(Response::STAT_OK);
+            $this->response->statusCode(Aspsms\Response::STAT_OK);
         }
         else
         {
@@ -298,13 +341,15 @@ class SoapClient extends AbstractClient
     
     
     /**
+     * Post-Processing for GetStatusCodeDescription
+     * 
      * If invalid status code given, returns status code as description
      */
     public function post_GetStatusCodeDescription()
     {
         if ($this->request->get('StatusCode') != $this->response->result)
         {
-            $this->response->statusCode(Response::STAT_OK);
+            $this->response->statusCode(Aspsms\Response::STAT_OK);
         }
     }
     
@@ -403,7 +448,7 @@ class SoapClient extends AbstractClient
             return;
         }
         
-        // api and version is found at beginning of response
+        
         if (preg_match('/^([^ ]+)/',$result_str,$m))
         {
             $v = $m[1];
@@ -413,7 +458,6 @@ class SoapClient extends AbstractClient
             $v = '';
         }
         
-        // build number follows 'build:'
         if (preg_match('/build:((?:\d|\.)+)/',$result_str,$m))
         {
             $b = $m[1];
@@ -430,4 +474,3 @@ class SoapClient extends AbstractClient
         );
     }
 }
-

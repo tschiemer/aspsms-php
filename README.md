@@ -10,6 +10,15 @@ Features
  - Library adapter for CodeIgniter (with extensive demo)
  - Clear-ish documentation of simple interfaces
 
+Available aspsms.com Functionality
+----------
+
+ - Sending of Text SMS
+ - Retrieval of delivery status
+ - Originator (Sender) testing and unlocking
+ - Token sending and validation (also see http://www.asptoken.com)
+ - Binary SMS: VCard
+
 Requirements
 ----------
 
@@ -35,9 +44,9 @@ Sample use
 ----------
 Please refer to CodeIgniter Adapter for a more extended demo.
 
+    use \tschiemer\Aspsms as Aspsms;
 
-    require 'lib/Aspsms/SimpleClient.php';
-    require 'lib/Aspsms/Helpers.php'; // contains only status code to description mappings
+    require_once 'lib/tschiemer/autoload.php';
     
     $config = array(
         'userkey'       => 'my-key',
@@ -45,7 +54,7 @@ Please refer to CodeIgniter Adapter for a more extended demo.
         'originator'    => 'my-originator'
     );
 
-    $aspsms = new \Aspsms\SimpleClient($config);
+    $aspsms = new Aspsms\SimpleClient($config);
 
     // Send trackable SMS
     try {
@@ -54,7 +63,7 @@ Please refer to CodeIgniter Adapter for a more extended demo.
             '101' => '0031xxxxxxxx'
             ), 'Hello pretty!');
     }
-    catch (\Aspsms\AspsmsException $e){
+    catch (Aspsms\ServiceException $e){
         die('ASPSMS service error: '.$e->getMessage());
     }
 
@@ -74,15 +83,15 @@ Please refer to CodeIgniter Adapter for a more extended demo.
     try {
         $status = $aspsms->getDeliveryStatus(array('100','101'));
     }
-    catch (\Aspsms\AspsmsException $e){
+    catch (Aspsms\ServiceException $e){
         die('ASPSMS service error: '.$e->getMessage());
     }
 
     print_r($status);
     
-    echo deliveryStatusString($status['100']['status']);
+    echo Aspsms\Strings::deliveryStatus($status['100']['status']);
 
-    echo reasonCodeString($status['100']['reason']);
+    echo Aspsms\Strings::reasonCode($status['100']['reason']);
 
     
 
@@ -113,6 +122,11 @@ Outputs
     Unknown subscriber
     
     
+Revision History
+----------
+1.1.0
+- PSR-0 namespace compatibility and composer/packagist registration
+- minor filename/class renaming
 
 
 Official Documentation
