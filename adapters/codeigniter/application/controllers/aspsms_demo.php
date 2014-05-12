@@ -48,7 +48,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $balance = $this->aspsms->getCreditBalance();
         }
-        catch(\Aspsms\AspsmsException $e) {
+        catch(\tschiemer\Aspsms\ServiceException $e) {
             show_error('ASPSMS send error: '. $e->getMessage());
         }
         
@@ -80,7 +80,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->sendText($recipient, $text);
         }
-        catch(\Aspsms\AspsmsException $e) {
+        catch(\tschiemer\Aspsms\ServiceException $e) {
             show_error('ASPSMS send error: '. $e->getMessage());
         }
         
@@ -107,7 +107,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->sendText(array_combine($trackingnr, $recipient), $text);
         }
-        catch(\Aspsms\AspsmsException $e) {
+        catch(\tschiemer\Aspsms\ServiceException $e) {
             show_error('ASPSMS send error: '. $e->getMessage());
         }
         
@@ -135,7 +135,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $status = $this->aspsms->getDeliveryStatus($trackingnr);
         }
-        catch(\Aspsms\AspsmsException $e){
+        catch(\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -159,7 +159,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->checkOriginator($originator);
         }
-        catch(\Aspsms\AspsmsException $e){
+        catch(\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -186,7 +186,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->requestOriginatorUnlockCode($originator);
         }
-        catch(\Aspsms\AspsmsException $e){
+        catch(\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -221,7 +221,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->unlockOriginator($code,$originator);
         }
-        catch(\Aspsms\AspsmsException $e){
+        catch(\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -251,7 +251,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->sendGeneratedToken($phoneNr, $reference, $message, $mask, $minutes, $case_sensitive);
         }
-        catch (\Aspsms\AspsmsException $e){
+        catch (\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -277,7 +277,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $valid = $this->aspsms->validateToken($phoneNr, $reference, $token);
         }
-        catch(\Aspsms\AspsmsException $e){
+        catch(\tschiemer\Aspsms\ServiceException $e){
             show_error('ASPSMS query failed: '.$e->getMessage());
         }
         
@@ -304,7 +304,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->sendWapPush($recipient, $url, $description);
         }
-        catch(\Aspsms\AspsmsException $e) {
+        catch(\tschiemer\Aspsms\ServiceException $e) {
             show_error('ASPSMS send error: '. $e->getMessage());
         }
         
@@ -331,7 +331,7 @@ class Aspsms_demo extends CI_Controller
         try {
             $success = $this->aspsms->sendVCard($recipient, $name, $phone);
         }
-        catch(\Aspsms\AspsmsException $e) {
+        catch(\tschiemer\Aspsms\ServiceException $e) {
             show_error('ASPSMS send error: '. $e->getMessage());
         }
         
