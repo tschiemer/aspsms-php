@@ -248,7 +248,7 @@ class SoapClient extends Aspsms\AbstractClient
         }
         catch (\SoapFault $e)
         {   
-            throw new AspsmsServiceExceptionn('SoapFault: '.$e->getMessage());
+            throw new Aspsms\ServiceException('SoapFault: '.$e->getMessage());
         }
         
         // Result post-processing

@@ -614,7 +614,7 @@ abstract class AbstractSimpleClient
      * 
      * @param array $options
      * @return mixed
-     * @throwsServiceExceptionn
+     * @throws ServiceException
      * @see \Aspsms\AbstractClient
      */
     public function send($options = array())
@@ -623,7 +623,7 @@ abstract class AbstractSimpleClient
         
         if ($this->currentRequest->getRequestName() == NULL)
         {
-            throw neServiceExceptionon('RequestName of request not defined, please use a given method or define properly yourself.');
+            throw new ServiceException('RequestName of request not defined, please use a given method or define properly yourself.');
         }
         
         $request = $this->lastRequest = $this->currentRequest;
@@ -634,7 +634,7 @@ abstract class AbstractSimpleClient
         // Sanity check
         if ( ! $driver->canProcess($request))
         {
-            throw nServiceExceptionion('Driver can not process request '.$request->getRequestName());
+            throw new ServiceException('Driver can not process request '.$request->getRequestName());
         }
         
         // send request

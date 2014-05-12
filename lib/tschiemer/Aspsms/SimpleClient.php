@@ -113,7 +113,7 @@ class SimpleClient extends AbstractSimpleClient
                 
                 if ( ! in_array($v,$validDrivers))
                 {
-                    throw newServiceExceptionn('Invalid driver passed: '.$v); 
+                    throw new ServiceException('Invalid driver passed: '.$v); 
                 }
                 
                 $this->requestMap[$k] = $v;
@@ -128,7 +128,7 @@ class SimpleClient extends AbstractSimpleClient
      * 
      * @param Request $requestType
      * @return AbstractClient
-     * @throwServiceExceptionon
+     * @throw ServiceExceptionon
      */
     public function driver(&$request)
     {
@@ -136,7 +136,7 @@ class SimpleClient extends AbstractSimpleClient
         
         if ( ! isset($this->requestMap[$requestName]))
         {
-            throw nServiceExceptionion('Request type not recognized: '.$requestName);
+            throw new ServiceException('Request type not recognized: '.$requestName);
         }
         
         // Get driver name
@@ -156,7 +156,7 @@ class SimpleClient extends AbstractSimpleClient
      * 
      * @param string $obj_name Driver name
      * @return \Aspsms\class Instance of driver
-     * @thrServiceExceptiontion
+     * @throw ServiceException
      */
     public function loadDriver($obj_name)
     {

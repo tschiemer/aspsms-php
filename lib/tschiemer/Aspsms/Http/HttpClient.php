@@ -279,7 +279,7 @@ class HttpClient extends Aspsms\AbstractClient
         if (curl_errno($ch) != 0)
         {
             $errstr = curl_error($ch);
-            throw new AspsmsServiceExceptionn('CURL request failed: '. $errstr);
+            throw new Aspsms\ServiceExceptionn('CURL request failed: '. $errstr);
         }
         
         curl_close($ch);
@@ -292,7 +292,7 @@ class HttpClient extends Aspsms\AbstractClient
         }
         else
         {
-            throw new AspsmServiceExceptionon('Invalid non-XML response given.');
+            throw new Aspsms\ServiceExceptionon('Invalid non-XML response given.');
         }
         
         
