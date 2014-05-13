@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class tschiemer\Aspsms\Http\HttpClient | aspsms-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?922972382"></script>
+	<script type="text/javascript" src="elementlist.js?1436315765"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-tschiemer.html">tschiemer<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-tschiemer.Aspsms.html">Aspsms<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-tschiemer.Aspsms.Http.html">Http</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Soap.html">Soap</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Xml.html">Xml</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-tschiemer.Aspsms.Http.HttpClient.html">HttpClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.Http.HttpSimpleClient.html">HttpSimpleClient</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-tschiemer.Aspsms.Http.html" title="Summary of tschiemer\Aspsms\Http"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class HttpClient</h1>
+
+
+	<div class="description">
+	
+<p>Driver for HTTP based services.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-tschiemer.Aspsms.AbstractClient.html"><span>tschiemer\Aspsms\AbstractClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>tschiemer\Aspsms\Http\HttpClient</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-tschiemer.html">tschiemer</a>\<a href="namespace-tschiemer.Aspsms.html">Aspsms</a>\<a href="namespace-tschiemer.Aspsms.Http.html">Http</a><br />
+		<b>Package:</b> aspsms<br />
+
+				<b>Copyright:</b>
+				2013 Philip Tschiemer, &lt;<a
+href="mailto:tschiemer&#64;filou.se">tschiemer&#64;<!---->filou.se</a>&gt;<br />
+				<b>License:</b>
+				<a href="LGPL">v3 http://www.gnu.org/licenses/lgpl-3.0.txt</a><br />
+				<b>Version:</b>
+				1.1.0<br />
+				<b>Link:</b>
+				<a href="https://github.com/tschiemer/aspsms-php">https://github.com/tschiemer/aspsms-php</a><br />
+		<b>Located at</b> <a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#11-476" title="Go to source code">lib/tschiemer/Aspsms/Http/HttpClient.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#167-211" title="Go to source code">__construct</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate and configure HttpClient. Possible options (to be passed in assoc
+array):</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate and configure HttpClient. Possible options (to be passed in assoc
+array):</p>
+
+<p>"method" optional, default "GET" "GET" | "POST" "baseUrl" optional, default
+as defined service base URL to use for requests "curl" optional associative
+array with options to pass to CURL</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Associative array</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>AspsmsException</code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-tschiemer.Aspsms.Http.HttpClient.html#$method">tschiemer\Aspsms\Http\HttpClient::<var>$method</var></a></code></code><br />
+						<code><code><a href="class-tschiemer.Aspsms.Http.HttpClient.html#$baseUrl">tschiemer\Aspsms\Http\HttpClient::<var>$baseUrl</var></a></code></code><br />
+						<code><code><a href="class-tschiemer.Aspsms.Http.HttpClient.html#$curlOpt">tschiemer\Aspsms\Http\HttpClient::<var>$curlOpt</var></a></code></code><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="send" id="_send">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_send">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#213-308" title="Go to source code">send</a>( <span>Aspsms\Request <var>$request</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Send given request.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Send given request.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd><code>Aspsms\Request</code><br>$request</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>AspsmsException</code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						AbstractClient::getResponse()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_default" id="_post_default">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_default">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#310-324" title="Go to source code">post_default</a>( )</code>
+
+		<div class="description short">
+			
+<p>Default Post-Processor (applied if no specific PP to be used)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Default Post-Processor (applied if no specific PP to be used)</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_CheckCredits" id="_post_CheckCredits">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_CheckCredits">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#326-340" title="Go to source code">post_CheckCredits</a>( )</code>
+
+		<div class="description short">
+			
+<p>Post-Processing for CheckCredits</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Post-Processing for CheckCredits</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_GetStatusCodeDescription" id="_post_GetStatusCodeDescription">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_GetStatusCodeDescription">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#343-354" title="Go to source code">post_GetStatusCodeDescription</a>( )</code>
+
+		<div class="description short">
+			
+<p>Post-Processing for GetStatusCodeDescription</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Post-Processing for GetStatusCodeDescription</p>
+
+<p>If invalid status code given, returns status code as description</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_CheckOriginatorAuthorization" id="_post_CheckOriginatorAuthorization">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_CheckOriginatorAuthorization">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#356-381" title="Go to source code">post_CheckOriginatorAuthorization</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_InquireDeliveryNotifications" id="_post_InquireDeliveryNotifications">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_InquireDeliveryNotifications">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#383-433" title="Go to source code">post_InquireDeliveryNotifications</a>( )</code>
+
+		<div class="description short">
+			
+<p>Post-Processing for InquireDeliveryNotifications</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Post-Processing for InquireDeliveryNotifications</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post_VersionInfo" id="_post_VersionInfo">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post_VersionInfo">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#435-475" title="Go to source code">post_VersionInfo</a>( )</code>
+
+		<div class="description short">
+			
+<p>Post-Processing for VersionInfo</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Post-Processing for VersionInfo</p>
+
+<p>Creates an associative array with complete response, service version and
+build number.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-tschiemer.Aspsms.AbstractClient.html#methods">tschiemer\Aspsms\AbstractClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractClient.html#_canProcess">canProcess()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractClient.html#_clear">clear()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractClient.html#_getResponse">getResponse()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="baseUrl" id="$baseUrl">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#22-27" title="Go to source code"><var>$baseUrl</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'https://webservice.aspsms.com/aspsmsx2.asmx/'</span></code></td>
+		<td class="description"><div>
+			<a href="#$baseUrl" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Request base url</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Request base url</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="method" id="$method">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#29-34" title="Go to source code"><var>$method</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'POST'</span></code></td>
+		<td class="description"><div>
+			<a href="#$method" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>HTTP method to use</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>HTTP method to use</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="curlOpt" id="$curlOpt">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#36-44" title="Go to source code"><var>$curlOpt</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    CURLOPT_USERAGENT       =&gt; <span class="php-quote">'aspsms-php v1 http:1'</span>,
+    CURLOPT_SSL_VERIFYPEER  =&gt; <span class="php-keyword1">FALSE</span>
+)</code></td>
+		<td class="description"><div>
+			<a href="#$curlOpt" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>List of CURL options to use.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>List of CURL options to use.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="requests" id="$requests">
+		<td class="attributes"><code>
+			public  
+			array[]
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.Http.HttpClient.html#47-164" title="Go to source code"><var>$requests</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'getVersion'</span>                =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span> =&gt; <span class="php-quote">'VersionInfo'</span>
+                                    ),
+    <span class="php-quote">'getCredits'</span>                =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span> =&gt; <span class="php-quote">'CheckCredits'</span>,
+                                    <span class="php-quote">'param'</span>   =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>
+                                   )),
+    <span class="php-quote">'getStatusCodeDescription'</span>  =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'GetStatusCodeDescription'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'StatusCode'</span> =&gt; <span class="php-quote">''</span>
+                                    )),
+    
+    <span class="php-quote">'sendText'</span>                  =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'SendUnicodeSMS'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Recipients'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'MessageText'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'DeferredDeliveryTime'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'FlashingSMS'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'TimeZone'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLBufferedMessageNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLNonDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'AffiliateId'</span> =&gt; <span class="php-quote">''</span>
+                                    )),
+    <span class="php-quote">'sendWapPush'</span>               =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'SimpleWAPPush'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Recipients'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'WapDescription'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'WapURL'</span>    =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'DeferredDeliveryTime'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'FlashingSMS'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'TimeZone'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLBufferedMessageNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLNonDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'AffiliateId'</span> =&gt; <span class="php-quote">''</span>
+                                    )),
+    <span class="php-quote">'sendToken'</span>                 =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'SendTokenSMS'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Recipients'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'MessageData'</span>=&gt;<span class="php-quote">''</span>,
+                                        <span class="php-quote">'TokenReference'</span>=&gt;<span class="php-quote">''</span>,
+                                        <span class="php-quote">'TokenValidity'</span>=&gt;<span class="php-quote">'5'</span>,
+                                        <span class="php-quote">'TokenMask'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'VerificationCode'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'TokenCaseSensitive'</span> =&gt; <span class="php-quote">'0'</span>,
+                                        <span class="php-quote">'URLBufferedMessageNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'URLNonDeliveryNotification'</span> =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'AffiliateId'</span> =&gt; <span class="php-quote">''</span>
+                                    )),
+    <span class="php-quote">'verifyToken'</span>               =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'VerifyToken'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'PhoneNumber'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'TokenReference'</span>=&gt;<span class="php-quote">''</span>,
+                                        <span class="php-quote">'VerificationCode'</span> =&gt; <span class="php-quote">''</span>,
+                                    )),
+    
+    <span class="php-quote">'getDeliveryStatus'</span>         =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'InquireDeliveryNotifications'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'TransactionReferenceNumbers'</span>=&gt; <span class="php-quote">''</span>
+                                    )),
+    
+    <span class="php-quote">'checkOriginator'</span>           =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'CheckOriginatorAuthorization'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>
+                                    )),
+    <span class="php-quote">'sendOriginatorCode'</span>        =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'SendOriginatorUnlockCode'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>
+                                    )),
+    <span class="php-quote">'unlockOriginator'</span>          =&gt; <span class="php-keyword1">array</span>(
+                                    <span class="php-quote">'service'</span>   =&gt; <span class="php-quote">'UnlockOriginator'</span>,
+                                    <span class="php-quote">'param'</span>     =&gt; <span class="php-keyword1">array</span>(
+                                        <span class="php-quote">'UserKey'</span>   =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Password'</span>  =&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'Originator'</span>=&gt; <span class="php-quote">''</span>,
+                                        <span class="php-quote">'OriginatorUnlockCode'</span>=&gt;<span class="php-quote">''</span>,
+                                        <span class="php-quote">'AffiliateId'</span>=&gt; <span class="php-quote">''</span>
+                                    ))
+)</code></td>
+		<td class="description"><div>
+			<a href="#$requests" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Request configuration</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Request configuration</p>
+
+<p>Foreach request: 'service' := actual service name to use 'param' := list of
+fields and default settings to use</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-tschiemer.Aspsms.AbstractClient.html#properties">tschiemer\Aspsms\AbstractClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractClient.html#$request"><var>$request</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractClient.html#$response"><var>$response</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		aspsms-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
