@@ -39,6 +39,10 @@ Todos
     Short Message Service Centre (SMSC) External Machine Interface (EMI) Description, EmiSpec_44a.pdf
 
 
+Documentation
+----------
+[PHP Apigen Documentation](http://tschiemer.github.io/aspsms-php)
+
 
 Sample use
 ----------
