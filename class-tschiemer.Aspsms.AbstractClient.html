@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class tschiemer\Aspsms\AbstractClient | aspsms-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?922972382"></script>
+	<script type="text/javascript" src="elementlist.js?1436315765"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-tschiemer.html">tschiemer<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-tschiemer.Aspsms.html">Aspsms<span></span></a>
+						<ul>
+				<li><a href="namespace-tschiemer.Aspsms.Http.html">Http</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Soap.html">Soap</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Xml.html">Xml</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-tschiemer.Aspsms.AbstractClient.html">AbstractClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.AbstractSimpleClient.html">AbstractSimpleClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.Request.html">Request</a></li>
+				<li><a href="class-tschiemer.Aspsms.Response.html">Response</a></li>
+				<li><a href="class-tschiemer.Aspsms.SimpleClient.html">SimpleClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.Strings.html">Strings</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-tschiemer.Aspsms.ServiceException.html">ServiceException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-tschiemer.Aspsms.html" title="Summary of tschiemer\Aspsms"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractClient</h1>
+
+
+	<div class="description">
+	
+<p>Interface for service drivers, can be used as standalone components.</p>
+
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-tschiemer.Aspsms.Http.HttpClient.html">tschiemer\Aspsms\Http\HttpClient</a>, 
+			<a href="class-tschiemer.Aspsms.Soap.SoapClient.html">tschiemer\Aspsms\Soap\SoapClient</a>, 
+			<a href="class-tschiemer.Aspsms.Xml.XmlClient.html">tschiemer\Aspsms\Xml\XmlClient</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-tschiemer.html">tschiemer</a>\<a href="namespace-tschiemer.Aspsms.html">Aspsms</a><br />
+		<b>Package:</b> aspsms<br />
+
+				<b>Copyright:</b>
+				2013 Philip Tschiemer, &lt;<a
+href="mailto:tschiemer&#64;filou.se">tschiemer&#64;<!---->filou.se</a>&gt;<br />
+				<b>License:</b>
+				<a href="LGPL">v3 http://www.gnu.org/licenses/lgpl-3.0.txt</a><br />
+				<b>Version:</b>
+				1.1.0<br />
+				<b>Link:</b>
+				<a href="https://github.com/tschiemer/aspsms-php">https://github.com/tschiemer/aspsms-php</a><br />
+		<b>Located at</b> <a href="source-class-tschiemer.Aspsms.AbstractClient.html#5-101" title="Go to source code">lib/tschiemer/Aspsms/AbstractClient.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="canProcess" id="_canProcess">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_canProcess">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.AbstractClient.html#63-76" title="Go to source code">canProcess</a>( <span>string|Aspsms\Request <var>$request</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Can satisfy/perform the given request?</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Can satisfy/perform the given request?</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd><code>string|Aspsms\Request</code><br>$requestName</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="send" id="_send">
+
+		<td class="attributes"><code>
+			abstract public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_send">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.AbstractClient.html#78-83" title="Go to source code">send</a>( <span>array <var>$request</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd><code>array</code><br>$request</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-tschiemer.Aspsms.ServiceException.html">tschiemer\Aspsms\ServiceException</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResponse" id="_getResponse">
+
+		<td class="attributes"><code>
+			 public 
+			Aspsms\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResponse">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.AbstractClient.html#85-91" title="Go to source code">getResponse</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Aspsms\Response</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear" id="_clear">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.AbstractClient.html#93-100" title="Go to source code">clear</a>( )</code>
+
+		<div class="description short">
+			
+<p>Reset internal request and response</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reset internal request and response</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="requests" id="$requests">
+		<td class="attributes"><code>
+			public  
+			string[]
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.AbstractClient.html#16-46" title="Go to source code"><var>$requests</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'getVersion'</span>                =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'getCredits'</span>                =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'getStatusCodeDescription'</span>  =&gt; <span class="php-keyword1">NULL</span>,
+    
+    <span class="php-quote">'sendText'</span>                  =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendWapPush'</span>               =&gt; <span class="php-keyword1">NULL</span>,
+    
+    <span class="php-quote">'sendToken'</span>                 =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'verifyToken'</span>               =&gt; <span class="php-keyword1">NULL</span>,
+    
+    <span class="php-quote">'getDeliveryStatus'</span>         =&gt; <span class="php-keyword1">NULL</span>,
+    
+    <span class="php-quote">'checkOriginator'</span>           =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendOriginatorCode'</span>        =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'unlockOriginator'</span>          =&gt; <span class="php-keyword1">NULL</span>,
+    
+    <span class="php-quote">'sendPicture'</span>               =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendLogo'</span>                  =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendGroupLogo'</span>             =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendRingtone'</span>              =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendVCard'</span>                 =&gt; <span class="php-keyword1">NULL</span>,
+    <span class="php-quote">'sendBinaryData'</span>            =&gt; <span class="php-keyword1">NULL</span>
+)</code></td>
+		<td class="description"><div>
+			<a href="#$requests" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>List of satsfiable requests</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>List of satsfiable requests</p>
+
+
+					<h4>See</h4>
+					<div class="list">
+							canPerform()<br />
+					</div>
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="request" id="$request">
+		<td class="attributes"><code>
+			public  
+			Aspsms\Request
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.AbstractClient.html#49-53" title="Go to source code"><var>$request</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$request" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="response" id="$response">
+		<td class="attributes"><code>
+			public  
+			Aspsms\Response
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.AbstractClient.html#55-59" title="Go to source code"><var>$response</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$response" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		aspsms-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

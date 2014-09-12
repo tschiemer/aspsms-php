@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class tschiemer\Aspsms\SimpleClient | aspsms-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?922972382"></script>
+	<script type="text/javascript" src="elementlist.js?1436315765"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-tschiemer.html">tschiemer<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-tschiemer.Aspsms.html">Aspsms<span></span></a>
+						<ul>
+				<li><a href="namespace-tschiemer.Aspsms.Http.html">Http</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Soap.html">Soap</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Xml.html">Xml</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-tschiemer.Aspsms.AbstractClient.html">AbstractClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.AbstractSimpleClient.html">AbstractSimpleClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.Request.html">Request</a></li>
+				<li><a href="class-tschiemer.Aspsms.Response.html">Response</a></li>
+				<li class="active"><a href="class-tschiemer.Aspsms.SimpleClient.html">SimpleClient</a></li>
+				<li><a href="class-tschiemer.Aspsms.Strings.html">Strings</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-tschiemer.Aspsms.ServiceException.html">ServiceException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-tschiemer.Aspsms.html" title="Summary of tschiemer\Aspsms"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SimpleClient</h1>
+
+
+	<div class="description">
+	
+<p>Simple interface combining all possible drivers.</p>
+
+<p>Has an internal mapping of request names to drivers, thus drivers are loaded
+lazily as required.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html"><span>tschiemer\Aspsms\AbstractSimpleClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>tschiemer\Aspsms\SimpleClient</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Aspsms.html">Aspsms</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-tschiemer.html">tschiemer</a>\<a href="namespace-tschiemer.Aspsms.html">Aspsms</a><br />
+		<b>Package:</b> aspsms<br />
+
+				<b>Copyright:</b>
+				2013 Philip Tschiemer, &lt;<a
+href="mailto:tschiemer&#64;filou.se">tschiemer&#64;<!---->filou.se</a>&gt;<br />
+				<b>License:</b>
+				<a href="LGPL">v3 http://www.gnu.org/licenses/lgpl-3.0.txt</a><br />
+				<b>Version:</b>
+				1.1.0<br />
+				<b>Link:</b>
+				<a href="https://github.com/tschiemer/aspsms-php">https://github.com/tschiemer/aspsms-php</a><br />
+		<b>Located at</b> <a href="source-class-tschiemer.Aspsms.SimpleClient.html#6-366" title="Go to source code">lib/tschiemer/Aspsms/SimpleClient.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#69-124" title="Go to source code">__construct</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor</p>
+
+<p>Sets up simple client and prepare for driver instantiation.</p>
+
+<p>Driver options are passed as fields with names
+'soapclient','httpclient','xmlclient' respectively.</p>
+
+<p>The default request mapping can be changed when passing</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#___construct">tschiemer\Aspsms\AbstractSimpleClient::__construct()</a></code></code><br />
+						SoapClient::__construct()<br />
+						HttpClient::__construct()<br />
+						XmlClient::__construct()<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#___construct">tschiemer\Aspsms\AbstractSimpleClient::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="driver" id="_driver">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-tschiemer.Aspsms.AbstractClient.html">tschiemer\Aspsms\AbstractClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_driver">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#126-152" title="Go to source code">driver</a>( <span><code><a href="class-tschiemer.Aspsms.Request.html">tschiemer\Aspsms\Request</a></code> <var>&amp; $request</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Loads and returns the correct driver for the assigned request type.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Loads and returns the correct driver for the assigned request type.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd><code><code><a href="class-tschiemer.Aspsms.Request.html">tschiemer\Aspsms\Request</a></code></code><br>$requestType</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-tschiemer.Aspsms.AbstractClient.html">tschiemer\Aspsms\AbstractClient</a></code></code><br />
+				</div>
+
+
+				<h4>Throw</h4>
+				<div class="list">
+						ServiceExceptionon<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadDriver" id="_loadDriver">
+
+		<td class="attributes"><code>
+			 public 
+			Aspsms\class
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadDriver">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#154-193" title="Go to source code">loadDriver</a>( <span>string <var>$obj_name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiates driver with internal options.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiates driver with internal options.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$obj_name</var></dt>
+					<dd><code>string</code><br>$obj_name Driver name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Aspsms\class</code><br>Instance of driver<br />
+				</div>
+
+
+				<h4>Throw</h4>
+				<div class="list">
+						ServiceException<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getVersion" id="_getVersion">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getVersion">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#196-206" title="Go to source code">getVersion</a>( )</code>
+
+		<div class="description short">
+			
+<p>Request: Get Soap or Http Service version (depends on assigned driver to
+use)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: Get Soap or Http Service version (depends on assigned driver to
+use)</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Associative array with fields 'all','version','build' and corresponding meaning.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStatusDescription" id="_getStatusDescription">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStatusDescription">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#209-221" title="Go to source code">getStatusDescription</a>( <span>string|integer <var>$statusCode</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Request: Get description to given status code.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: Get description to given status code.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$statusCode</var></dt>
+					<dd><code>string|integer</code><br>$statusCode</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sendMyToken" id="_sendMyToken">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sendMyToken">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#224-253" title="Go to source code">sendMyToken</a>( <span>string <var>$phoneNr</var></span>, <span>string <var>$reference</var></span>, <span>string <var>$verificationCode</var></span>, <span>string <var>$message</var> = <span class="php-quote">''</span></span>, <span>integer <var>$minutes</var> = <span class="php-num">5</span></span>, <span>boolean <var>$case_sensitive</var> = <span class="php-num">0</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Request: Send a token a predefined token to recipients.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: Send a token a predefined token to recipients.</p>
+
+<p>Official doc:</p>
+
+<p>If MessageData is set, the placeholder &lt;VERIFICATIONCODE&gt; will be
+substituted with the verification code. If MessageData is not defined, or if
+MessageData does not contain the placeholder &lt;VERIFICATIONCODE&gt;, only the
+verification code is sent.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$phoneNr</var></dt>
+					<dd><code>string</code><br>$phoneNr Recipient phone number</dd>
+					<dt><var>$reference</var></dt>
+					<dd><code>string</code><br>$reference Your reference number</dd>
+					<dt><var>$verificationCode</var></dt>
+					<dd><code>string</code><br>$verificationCode Required verification code to send</dd>
+					<dt><var>$message</var></dt>
+					<dd><code>string</code><br>$message Message to send code with.</dd>
+					<dt><var>$minutes</var></dt>
+					<dd><code>integer</code><br>$minutes Validity of token in minutes (default 5)</dd>
+					<dt><var>$case_sensitive</var></dt>
+					<dd><code>boolean</code><br>$case_sensitive Is given code case sensitive?</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Request success?<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sendGeneratedToken" id="_sendGeneratedToken">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sendGeneratedToken">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#255-295" title="Go to source code">sendGeneratedToken</a>( <span>string <var>$phoneNr</var></span>, <span>string <var>$reference</var></span>, <span>string <var>$message</var> = <span class="php-quote">''</span></span>, <span>string <var>$mask</var> = <span class="php-quote">'######'</span></span>, <span>integer <var>$minutes</var> = <span class="php-num">5</span></span>, <span>boolean <var>$case_sensitive</var> = <span class="php-num">0</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Request: Send a token as generated by ASPSMS.COM, optionally give token
+mask.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: Send a token as generated by ASPSMS.COM, optionally give token
+mask.</p>
+
+<p>Official doc:</p>
+
+<p>If MessageData is set, the placeholder &lt;VERIFICATIONCODE&gt; will be
+substituted with the verification code. If MessageData is not defined, or if
+MessageData does not contain the placeholder &lt;VERIFICATIONCODE&gt;, only the
+verification code is sent.</p>
+
+<p>Official doc:</p>
+
+<p>Used to have the ASPSMS generate a verification code by mask. The mask can
+contain the following special characters:<br />
+# : a digit A : an alphabetic character N : an alphanumeric character<br />
+All other characters are taken literally. If not specified, the Mask is "NNNN"
+by default.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$phoneNr</var></dt>
+					<dd><code>string</code><br>$phoneNr Recipient phone number</dd>
+					<dt><var>$reference</var></dt>
+					<dd><code>string</code><br>$reference Your reference number</dd>
+					<dt><var>$message</var></dt>
+					<dd><code>string</code><br>$message Message to send code with.</dd>
+					<dt><var>$mask</var></dt>
+					<dd><code>string</code><br>$mask Token code mask to use (# -&gt; number, A -&gt; Alphabetical)</dd>
+					<dt><var>$minutes</var></dt>
+					<dd><code>integer</code><br>$minutes Validity of token in minutes (default 5)</dd>
+					<dt><var>$case_sensitive</var></dt>
+					<dd><code>boolean</code><br>$case_sensitive Is given code case sensitive?</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Request success?<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateToken" id="_validateToken">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateToken">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#297-316" title="Go to source code">validateToken</a>( <span>string <var>$phoneNr</var></span>, <span>string <var>$reference</var></span>, <span>string <var>$verificationCode</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Request: attempt to validate token.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: attempt to validate token.</p>
+
+<p>NOTE: If a token have been successfully validated, any future attempts (no
+matter the verification code use) succeed.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$phoneNr</var></dt>
+					<dd><code>string</code><br>$phoneNr Recipient phone number</dd>
+					<dt><var>$reference</var></dt>
+					<dd><code>string</code><br>$reference Your reference number</dd>
+					<dt><var>$verificationCode</var></dt>
+					<dd><code>string</code><br>$verificationCode Required verification code to validate</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Is given verification code for use valid?<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sendVCard" id="_sendVCard">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sendVCard">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#319-348" title="Go to source code">sendVCard</a>( <span>array,string <var>$recipients</var></span>, <span>string <var>$name</var></span>, <span>string <var>$phoneNr</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Send VCARD (name + telephone nr) to designated recipients.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Send VCARD (name + telephone nr) to designated recipients.</p>
+
+<p>String Format: ("&lt;RECIPIENT_NR&gt;" + {":&lt;TRACKING_NR&gt;"} ";" .. )+
+Eg: 00417777777 00417777777;00417777777;004177777777
+00417777777:84612004;00417777777:74183874783</p>
+
+<p>Array Format: &lt;TRACKING_NR&gt; =&gt; &lt;RECIPIENT_NR&gt;</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$recipients</var></dt>
+					<dd><code>array,string</code><br>$recipients</dd>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Name of VCARD</dd>
+					<dt><var>$phoneNr</var></dt>
+					<dd><code>string</code><br>$phoneNr Phone number of VCARD</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Request submitted successfully? (not delivery)<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Aspsms\AbstractSimpleClient::getDeliveryStatus()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sendRingtone" id="_sendRingtone">
+
+		<td class="attributes"><code>
+			 public 
+			type
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sendRingtone">#</a>
+		<code><a href="source-class-tschiemer.Aspsms.SimpleClient.html#350-365" title="Go to source code">sendRingtone</a>( <span>type <var>$recipients</var></span>, <span>type <var>$url</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$recipients</var></dt>
+					<dd><code>type</code><br>$recipients</dd>
+					<dt><var>$url</var></dt>
+					<dd><code>type</code><br>$url</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>type</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#methods">tschiemer\Aspsms\AbstractSimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_callbacks">callbacks()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_checkOriginator">checkOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_clear">clear()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_deferTime">deferTime()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_deferUntil">deferUntil()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_flash">flash()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getAffiliateId">getAffiliateId()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getCallbackURL">getCallbackURL()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getCreditBalance">getCreditBalance()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getDeliveryStatus">getDeliveryStatus()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastRequest">getLastRequest()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastResponse">getLastResponse()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastStatusCode">getLastStatusCode()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getOriginator">getOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_requestOriginatorUnlockCode">requestOriginatorUnlockCode()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_send">send()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_sendText">sendText()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_sendWapPush">sendWapPush()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_set">set()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setAffiliateId">setAffiliateId()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setAuth">setAuth()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setCallbackURL">setCallbackURL()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setOriginator">setOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_unlockOriginator">unlockOriginator()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="drivers" id="$drivers">
+		<td class="attributes"><code>
+			public  
+			<code><a href="class-tschiemer.Aspsms.AbstractClient.html">tschiemer\Aspsms\AbstractClient</a>[]</code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.SimpleClient.html#20-25" title="Go to source code"><var>$drivers</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$drivers" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Loaded drivers</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Loaded drivers</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="driverOptions" id="$driverOptions">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.SimpleClient.html#27-37" title="Go to source code"><var>$driverOptions</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'soap'</span>  =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'http'</span>  =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'xml'</span>   =&gt; <span class="php-keyword1">array</span>()
+)</code></td>
+		<td class="description"><div>
+			<a href="#$driverOptions" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Driver options to use when instantiating drivers .</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Driver options to use when instantiating drivers .</p>
+
+
+					<h4>See</h4>
+					<div class="list">
+							HttpClient, <code><code><a href="class-SoapClient.html">SoapClient</a></code></code>, XmlClient<br />
+					</div>
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="requestMap" id="$requestMap">
+		<td class="attributes"><code>
+			public  
+			string[]
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-tschiemer.Aspsms.SimpleClient.html#39-66" title="Go to source code"><var>$requestMap</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    
+    <span class="php-quote">'getVersion'</span>                =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Soap|Http</span>
+    <span class="php-quote">'getCredits'</span>                =&gt; <span class="php-quote">'http'</span>,   <span class="php-comment">// Xml|Soap|Http</span>
+    <span class="php-quote">'getStatusCodeDescription'</span>  =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Soap|Http</span>
+    
+    <span class="php-quote">'checkOriginator'</span>           =&gt; <span class="php-quote">'http'</span>,   <span class="php-comment">// Xml|Soap|Http</span>
+    <span class="php-quote">'sendOriginatorCode'</span>        =&gt; <span class="php-quote">'http'</span>,   <span class="php-comment">// Xml|Soap|Http</span>
+    <span class="php-quote">'unlockOriginator'</span>          =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Xml|Soap|Http</span>
+    
+    <span class="php-quote">'sendText'</span>                  =&gt; <span class="php-quote">'http'</span>,   <span class="php-comment">// Xml|Soap|Http</span>
+    <span class="php-quote">'sendWapPush'</span>               =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Xml|Soap|Http</span>
+    <span class="php-quote">'sendToken'</span>                 =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Soap|Http</span>
+    <span class="php-quote">'verifyToken'</span>               =&gt; <span class="php-quote">'http'</span>,   <span class="php-comment">// Soap|Http</span>
+    <span class="php-quote">'sendPicture'</span>               =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'sendLogo'</span>                  =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'sendGroupLogo'</span>             =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'sendRingtone'</span>              =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'sendVCard'</span>                 =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'sendBinaryData'</span>            =&gt; <span class="php-quote">'xml'</span>,   <span class="php-comment">// Xml</span>
+    <span class="php-quote">'getDeliveryStatus'</span>         =&gt; <span class="php-quote">'http'</span>,  <span class="php-comment">// Xml|Soap|Http</span>
+    
+)</code></td>
+		<td class="description"><div>
+			<a href="#$requestMap" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Mapping of request names to driver names</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Mapping of request names to driver names</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#properties">tschiemer\Aspsms\AbstractSimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$affiliateId"><var>$affiliateId</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$currentRequest"><var>$currentRequest</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$lastRequest"><var>$lastRequest</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$lastResponse"><var>$lastResponse</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$originator"><var>$originator</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$password"><var>$password</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$urls"><var>$urls</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$userkey"><var>$userkey</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		aspsms-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

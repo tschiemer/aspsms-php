@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Aspsms | aspsms-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?922972382"></script>
+	<script type="text/javascript" src="elementlist.js?1436315765"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li><a href="namespace-tschiemer.html">tschiemer<span></span></a>
+						<ul>
+				<li><a href="namespace-tschiemer.Aspsms.html">Aspsms<span></span></a>
+						<ul>
+				<li><a href="namespace-tschiemer.Aspsms.Http.html">Http</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Soap.html">Soap</a>
+						</li>
+				<li><a href="namespace-tschiemer.Aspsms.Xml.html">Xml</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Aspsms.html">Aspsms</a></li>
+				<li><a href="class-Aspsms_demo.html">Aspsms_demo</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Aspsms</h1>
+
+
+	<div class="description">
+	
+<p>Adapter interface of aspsms-php for CodeIgniter</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html"><span>tschiemer\Aspsms\AbstractSimpleClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-tschiemer.Aspsms.SimpleClient.html"><span>tschiemer\Aspsms\SimpleClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>Aspsms</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> aspsms\adapter\codeigniter<br />
+
+				<b>Copyright:</b>
+				2013 Philip Tschiemer, &lt;<a
+href="mailto:tschiemer&#64;filou.se">tschiemer&#64;<!---->filou.se</a>&gt;<br />
+				<b>License:</b>
+				<a href="LGPL">v3 http://www.gnu.org/licenses/lgpl-3.0.txt</a><br />
+				<b>Version:</b>
+				1.1.0<br />
+				<b>Link:</b>
+				<a href="https://github.com/tschiemer/aspsms-php">https://github.com/tschiemer/aspsms-php</a><br />
+		<b>Located at</b> <a href="source-class-Aspsms.html#5-75" title="Go to source code">adapters/codeigniter/application/libraries/Aspsms.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Aspsms.html#21-35" title="Go to source code">__construct</a>( <span>array <var>$config</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor</p>
+
+<p>Sets up simple client and prepare for driver instantiation.</p>
+
+<p>Driver options are passed as fields with names
+'soapclient','httpclient','xmlclient' respectively.</p>
+
+<p>The default request mapping can be changed when passing</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$config</var></dt>
+					<dd><code>array</code><br>$options</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						AbstractSimpleClient::__construct()<br />
+						SoapClient::__construct()<br />
+						HttpClient::__construct()<br />
+						XmlClient::__construct()<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-tschiemer.Aspsms.SimpleClient.html#___construct">tschiemer\Aspsms\SimpleClient::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStatusDescription" id="_getStatusDescription">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStatusDescription">#</a>
+		<code><a href="source-class-Aspsms.html#38-74" title="Go to source code">getStatusDescription</a>( <span>string|integer <var>$statusCode</var></span>, <span>boolean <var>$force_query</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Request: Get description to given status code.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Request: Get description to given status code.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$statusCode</var></dt>
+					<dd><code>string|integer</code><br>$statusCode</dd>
+					<dt><var>$force_query</var></dt>
+					<dd><code>boolean</code><br>$force_query Do not rely on database of known status codes, force query.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-tschiemer.Aspsms.SimpleClient.html#_getStatusDescription">tschiemer\Aspsms\SimpleClient::getStatusDescription()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-tschiemer.Aspsms.SimpleClient.html#methods">tschiemer\Aspsms\SimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_driver">driver()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_getVersion">getVersion()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_loadDriver">loadDriver()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_sendGeneratedToken">sendGeneratedToken()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_sendMyToken">sendMyToken()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_sendRingtone">sendRingtone()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_sendVCard">sendVCard()</a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#_validateToken">validateToken()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#methods">tschiemer\Aspsms\AbstractSimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_callbacks">callbacks()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_checkOriginator">checkOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_clear">clear()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_deferTime">deferTime()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_deferUntil">deferUntil()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_flash">flash()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getAffiliateId">getAffiliateId()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getCallbackURL">getCallbackURL()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getCreditBalance">getCreditBalance()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getDeliveryStatus">getDeliveryStatus()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastRequest">getLastRequest()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastResponse">getLastResponse()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getLastStatusCode">getLastStatusCode()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_getOriginator">getOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_requestOriginatorUnlockCode">requestOriginatorUnlockCode()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_send">send()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_sendText">sendText()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_sendWapPush">sendWapPush()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_set">set()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setAffiliateId">setAffiliateId()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setAuth">setAuth()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setCallbackURL">setCallbackURL()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_setOriginator">setOriginator()</a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#_unlockOriginator">unlockOriginator()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="CI" id="$CI">
+		<td class="attributes"><code>
+			public  
+			CI_Controller
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Aspsms.html#16-19" title="Go to source code"><var>$CI</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$CI" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-tschiemer.Aspsms.SimpleClient.html#properties">tschiemer\Aspsms\SimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#$driverOptions"><var>$driverOptions</var></a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#$drivers"><var>$drivers</var></a>, 
+			<a href="class-tschiemer.Aspsms.SimpleClient.html#$requestMap"><var>$requestMap</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#properties">tschiemer\Aspsms\AbstractSimpleClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$affiliateId"><var>$affiliateId</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$currentRequest"><var>$currentRequest</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$lastRequest"><var>$lastRequest</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$lastResponse"><var>$lastResponse</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$originator"><var>$originator</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$password"><var>$password</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$urls"><var>$urls</var></a>, 
+			<a href="class-tschiemer.Aspsms.AbstractSimpleClient.html#$userkey"><var>$userkey</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		aspsms-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
